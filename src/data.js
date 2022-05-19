@@ -1,0 +1,51 @@
+export const DATA = [
+  {
+    id: 1,
+    title: "Foot massage",
+    description: "You get a nice foot massage for exactly 1 hour!",
+    quantity: 3,
+    expiration_date: "07-10-2022",
+  },
+  {
+    id: 2,
+    title: "Museum day",
+    description: "Let's see some art!",
+    quantity: 1,
+    expiration_date: "07-10-2023",
+  },
+  {
+    id: 3,
+    title: "Beach day",
+    description: "Splash splash",
+    quantity: 2,
+    expiration_date: "02-08-2022",
+  },
+  {
+    id: 4,
+    title: "Museum day",
+    description: "Let's see some art!",
+    quantity: 1,
+    expiration_date: "07-10-2023",
+  },
+  {
+    id: 5,
+    title: "Beach day",
+    description: "Splash splash",
+    quantity: 2,
+    expiration_date: "02-08-2022",
+  },
+  {
+    id: 6,
+    title: "Museum day",
+    description: "Let's see some art!",
+    quantity: 1,
+    expiration_date: "07-10-2023",
+  },
+  {
+    id: 7,
+    title: "Beach day",
+    description: "Splash splash",
+    quantity: 2,
+    expiration_date: "02-08-2022",
+  },
+];
