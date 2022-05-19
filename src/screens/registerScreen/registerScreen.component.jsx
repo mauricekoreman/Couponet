@@ -26,6 +26,11 @@ const RegisterScreen = ({ navigation }) => {
 
   return (
     <View>
+      {!!error && (
+        <View>
+          <Text>{error}</Text>
+        </View>
+      )}
       <View>
         <TextInput onChangeText={setName} value={name} placeholder='Name' />
         <TextInput onChangeText={setEmail} value={email} placeholder='Email' />
