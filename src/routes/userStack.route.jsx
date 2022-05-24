@@ -6,10 +6,13 @@ import Feather from "@expo/vector-icons/Feather";
 import HomeTabNavigator from "./homeTabNavigator.route";
 import UseCoupon from "../screens/useCoupon/useCouponScreen.component";
 import SettingsScreen from "../screens/settings/settingsScreen.component";
+import CreateCouponScreen from "../screens/createCouponScreen/createCouponScreen.component";
 
 const Stack = createNativeStackNavigator();
 
 const UserStack = () => (
+  // check if user is linked. if linked ? HomeTabNavigator : LinkUserScreen
+
   <NavigationContainer>
     <Stack.Navigator
       screenOptions={{
@@ -33,6 +36,7 @@ const UserStack = () => (
       />
       <Stack.Screen name='useCouponScreen' component={UseCoupon} />
       <Stack.Screen name='settingsScreen' component={SettingsScreen} />
+      <Stack.Screen name='createCouponScreen' component={CreateCouponScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 );

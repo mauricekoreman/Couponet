@@ -1,25 +1,15 @@
 import { useState } from "react";
 import { View, Text, TextInput, Button } from "react-native";
-import { signInWithEmailAndPassword } from "firebase/auth";
 
-import { auth } from "../../firebase/firebase.config";
+import { loginUser } from "../../firebase/firestore";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  async function loginUser() {
-    if (email === "" || password === "") {
-      setError("Email and password are mandatory.");
-      return;
-    }
-
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (e) {
-      setError(e.message);
-    }
+  async function login() {
+    await loginUser(email, password, setError);
   }
 
   return (
@@ -29,9 +19,13 @@ const LoginScreen = ({ navigation }) => {
           <Text>{error}</Text>
         </View>
       )}
-      <TextInput onChangeText={setEmail} value={email} placeholder='Email' />
-      <TextInput onChangeText={setPassword} value={password} placeholder='Password' />
-      <Button title='Login!' onPress={loginUser} />
+      <TextInput onChangeText={(text) => setEmail(text)} value={email} placeholder='Email' />
+      <TextInput
+        onChangeText={(text) => setPassword(text)}
+        value={password}
+        placeholder='Password'
+      />
+      <Button title='Login!' onPress={login} />
       <Button title='No account? Register here!' onPress={() => navigation.navigate("register")} />
     </View>
   );
