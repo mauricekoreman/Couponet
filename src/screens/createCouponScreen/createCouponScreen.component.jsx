@@ -3,6 +3,7 @@ import { View, Text, TextInput } from "react-native";
 
 import PrimaryButton from "../../components/buttons/primaryButton/primaryButton.component";
 import Input from "../../components/input/input.component";
+import { createNewCoupon } from "../../firebase/firestore";
 
 import { styles } from "./createCouponScreen.styles";
 
@@ -46,7 +47,7 @@ const CreateCouponScreen = () => {
       />
       <PrimaryButton
         title={"Create coupon!"}
-        onPress={() => console.log("created new coupon")}
+        onPress={() => createNewCoupon(title, description, quantity, expirationDate)}
         style={styles.createCouponButton}
       />
     </View>

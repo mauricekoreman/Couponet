@@ -1,5 +1,6 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import {
+  addDoc,
   collection,
   doc,
   getDoc,
@@ -10,6 +11,8 @@ import {
   where,
 } from "firebase/firestore";
 import { auth, db } from "./firebase.config";
+import { store } from "../redux/store";
+import { setLinked } from "../redux/user/userSlice";
 
 async function registerNewUser(email, password, name, setError) {
   if (name === "" || email === "" || password === "") {
@@ -40,6 +43,15 @@ async function loginUser(email, password, setError) {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (error) {
     setError(error.code);
+  }
+}
+
+async function logoutUser() {
+  try {
+    await signOut(auth);
+    store.dispatch(setLinked(false));
+  } catch (error) {
+    console.error("Signing out failed: ", error);
   }
 }
 
@@ -81,8 +93,8 @@ async function linkWithUser(email) {
       const linkingUserData = querySnapshot.docs[0].data();
       const linkingUserId = querySnapshot.docs[0].id;
 
-      if (!linkingUserData.linked) {
-        // NOTE: later this has to be replaced with a two-step process where linkingUser confirms
+      // NOTE: later this has to be replaced with a two-step process where linkingUser confirms
+      if (!linkingUserData.linked || linkingUserData.linked === auth.currentUser.uid) {
         const currentUserRef = doc(db, "users", auth.currentUser.uid);
 
         // updating linked field in currentUser
@@ -99,4 +111,47 @@ async function linkWithUser(email) {
   }
 }
 
-export { registerNewUser, loginUser, getUserData, linkWithUser };
+async function addLinkedReceivedCoupons(couponData, docId) {
+  try {
+    // getting linked user uid
+    const userData = await getUserData();
+    const linkedUid = userData.linked;
+
+    // // Adding coupondata to coupons_received list of linked user.
+    // const docRef = doc(db, "users", linkedUid);
+    const docRef = doc(db, `users/${linkedUid}/coupons_received/${docId}`);
+    await setDoc(docRef, couponData);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function createNewCoupon(title, description, quantity, expirationDate) {
+  try {
+    const couponData = {
+      title: title,
+      description: description,
+      quantity: quantity,
+      expirationDate: expirationDate,
+    };
+
+    // creating a document
+    const docRef = doc(db, "users", auth.currentUser.uid);
+    const colRef = collection(docRef, "coupons_given");
+    const createdCoupon = await addDoc(colRef, couponData);
+
+    await addLinkedReceivedCoupons(couponData, createdCoupon.id);
+  } catch (error) {
+    console.error(error); // TODO: give error message back to user.
+  }
+}
+
+export {
+  registerNewUser,
+  loginUser,
+  getUserData,
+  linkWithUser,
+  logoutUser,
+  createNewCoupon,
+  addLinkedReceivedCoupons,
+};

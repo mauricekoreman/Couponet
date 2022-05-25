@@ -9,8 +9,8 @@ const MyCoupons = ({ navigation }) => {
   return (
     <>
       <ScrollView>
-        <CouponsList />
-        <CouponsList />
+        {/* <CouponsList /> */}
+        {/* <CouponsList /> */}
       </ScrollView>
       <PrimaryButton
         title='Give new coupon'

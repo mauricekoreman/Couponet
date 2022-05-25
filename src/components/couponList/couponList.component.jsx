@@ -12,7 +12,7 @@ const CouponsList = () => {
     <>
       <TouchableWithoutFeedback onPress={() => setOpen((prev) => !prev)}>
         <View style={{ backgroundColor: "white", paddingVertical: 20, paddingHorizontal: 10 }}>
-          <Text>Coupons used by Derin</Text>
+          <Text>All coupons given</Text>
         </View>
       </TouchableWithoutFeedback>
       {open && (
