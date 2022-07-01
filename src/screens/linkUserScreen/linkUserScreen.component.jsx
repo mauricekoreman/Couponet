@@ -1,15 +1,11 @@
 import { useState } from "react";
 import { View, Text, TextInput } from "react-native";
 
-import { useDispatch } from "react-redux";
-import { setLinked } from "../../redux/user/userSlice";
-
 import PrimaryButton from "../../components/buttons/primaryButton/primaryButton.component";
 import { linkWithUser } from "../../firebase/firestore";
 
 const LinkUserScreen = () => {
   const [linkUserEmail, setLinkUserEmail] = useState("");
-  const dispatch = useDispatch();
 
   return (
     <View>
@@ -21,7 +17,7 @@ const LinkUserScreen = () => {
       />
       <PrimaryButton
         title='LINK!'
-        onPress={async () => linkWithUser(linkUserEmail).then((res) => dispatch(setLinked(res)))}
+        // onPress={async () => linkWithUser(linkUserEmail).then((res) => dispatch(setLinked(res)))}
       />
     </View>
   );

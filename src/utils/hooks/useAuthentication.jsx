@@ -4,17 +4,17 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
 
 export function useAuthentication() {
-  const [user, setUser] = useState();
+  const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
     const unsubscribeFromAuthStateChanged = onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in
         // https://firebase.google.com/docs/reference/js/firebase.User
-        setUser(user);
+        setCurrentUser(user);
       } else {
         // User is signed out
-        setUser(undefined);
+        setCurrentUser(undefined);
       }
     });
 
@@ -22,6 +22,6 @@ export function useAuthentication() {
   }, []);
 
   return {
-    user,
+    currentUser,
   };
 }

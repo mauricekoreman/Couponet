@@ -1,17 +1,36 @@
-import { useState } from "react";
-import { View, Text, TextInput } from "react-native";
+import { useEffect, useState } from "react";
+import { View } from "react-native";
 
 import PrimaryButton from "../../components/buttons/primaryButton/primaryButton.component";
 import Input from "../../components/input/input.component";
-import { createNewCoupon } from "../../firebase/firestore";
 
 import { styles } from "./createCouponScreen.styles";
+import { createNewCoupon } from "../../firebase/firestore";
 
-const CreateCouponScreen = () => {
+const CreateCouponScreen = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState();
   const [expirationDate, setExpirationDate] = useState("");
+
+  const [buttonTitle, setButtonTitle] = useState("Create coupon!");
+
+  const submitCoupon = async () => {
+    const couponData = {
+      title,
+      description,
+      quantity,
+      expirationDate,
+    };
+
+    const res = await createNewCoupon(couponData);
+    setButtonTitle("Loading...");
+
+    if (res) {
+      setButtonTitle("Create coupon!");
+      navigation.goBack();
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -45,11 +64,7 @@ const CreateCouponScreen = () => {
         placeholder='Expiration date'
         inputStyle={styles.inputStyle}
       />
-      <PrimaryButton
-        title={"Create coupon!"}
-        onPress={() => createNewCoupon(title, description, quantity, expirationDate)}
-        style={styles.createCouponButton}
-      />
+      <PrimaryButton title={buttonTitle} onPress={submitCoupon} style={styles.createCouponButton} />
     </View>
   );
 };

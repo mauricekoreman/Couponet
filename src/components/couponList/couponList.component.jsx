@@ -1,11 +1,9 @@
-import { TouchableWithoutFeedback, Text, View } from "react-native";
 import { useState } from "react";
+import { TouchableWithoutFeedback, Text, View } from "react-native";
 
 import Coupon from "../coupon/coupon.components";
 
-import { DATA } from "../../data";
-
-const CouponsList = () => {
+const CouponsList = ({ data = [] }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -18,8 +16,8 @@ const CouponsList = () => {
       {open && (
         <View>
           <View collapsable={false}>
-            {DATA.map((item, key) => (
-              <Coupon item={item} key={key} />
+            {data.map((item) => (
+              <Coupon item={item.data} key={item.id} />
             ))}
           </View>
         </View>

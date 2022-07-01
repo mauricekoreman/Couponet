@@ -1,4 +1,8 @@
-import { ScrollView } from "react-native";
+import { useEffect, useState } from "react";
+import { ScrollView, Text } from "react-native";
+import { onSnapshot } from "firebase/firestore";
+
+import { useUser } from "../../contexts/userContext";
 
 import CouponsList from "../../components/couponList/couponList.component";
 import PrimaryButton from "../../components/buttons/primaryButton/primaryButton.component";
@@ -6,11 +10,21 @@ import PrimaryButton from "../../components/buttons/primaryButton/primaryButton.
 import { styles } from "./myCoupons.styles";
 
 const MyCoupons = ({ navigation }) => {
+  const { couponsGivenRef } = useUser();
+  const [myCoupons, setMyCoupons] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(couponsGivenRef, (snapshot) => {
+      setMyCoupons(snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() })));
+    });
+
+    return unsubscribe;
+  }, []);
+
   return (
     <>
       <ScrollView>
-        {/* <CouponsList /> */}
-        {/* <CouponsList /> */}
+        <CouponsList data={myCoupons} />
       </ScrollView>
       <PrimaryButton
         title='Give new coupon'

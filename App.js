@@ -1,21 +1,14 @@
-import { Provider } from "react-redux";
+import { AuthProvider } from "./src/contexts/authContext";
 import "./src/firebase/firebase.config";
 
-import AuthStack from "./src/routes/authStack.route";
-import UserStack from "./src/routes/userStack.route";
+import Routes from "./src/routes/routes";
 
-import { store } from "./src/redux/store";
-
-import { useAuthentication } from "./src/utils/hooks/useAuthentication";
+// TODO: uninstall redux!
 
 export default function App() {
-  const { user } = useAuthentication();
-
-  return user ? (
-    <Provider store={store}>
-      <UserStack />
-    </Provider>
-  ) : (
-    <AuthStack />
+  return (
+    <AuthProvider>
+      <Routes />
+    </AuthProvider>
   );
 }

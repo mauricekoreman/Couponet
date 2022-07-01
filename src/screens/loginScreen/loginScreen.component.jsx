@@ -1,15 +1,24 @@
 import { useState } from "react";
 import { View, Text, TextInput, Button } from "react-native";
-
-import { loginUser } from "../../firebase/firestore";
+import { useAuth } from "../../contexts/authContext";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  async function login() {
-    await loginUser(email, password, setError);
+  const { login } = useAuth();
+
+  async function handleLogin() {
+    try {
+      setError("");
+      setLoading(true);
+      await login(email, password);
+    } catch (error) {
+      console.error("Login error: ", error);
+      setError("Failed to login");
+    }
   }
 
   return (
@@ -25,7 +34,7 @@ const LoginScreen = ({ navigation }) => {
         value={password}
         placeholder='Password'
       />
-      <Button title='Login!' onPress={login} />
+      <Button disabled={loading} title='Login!' onPress={handleLogin} />
       <Button title='No account? Register here!' onPress={() => navigation.navigate("register")} />
     </View>
   );

@@ -1,16 +1,32 @@
 import { useState } from "react";
 import { View, Text, TextInput, Button } from "react-native";
-
-import { registerNewUser } from "../../firebase/firestore";
+import { useAuth } from "../../contexts/authContext";
 
 const RegisterScreen = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  async function register() {
-    await registerNewUser(email, password, name, setError);
+  const { register } = useAuth();
+
+  async function handleRegister() {
+    if (confirmPassword !== password) {
+      return setError("Passwords do not match");
+    }
+
+    try {
+      setError("");
+      setLoading(true);
+      await register(email, password);
+    } catch (error) {
+      console.error("Register error: ", error);
+      setError("Failed to create an account");
+    }
+
+    setLoading(false);
   }
 
   return (
@@ -28,7 +44,12 @@ const RegisterScreen = () => {
           value={password}
           placeholder='Password'
         />
-        <Button title='Register!' onPress={register} />
+        <TextInput
+          onChangeText={(text) => setConfirmPassword(text)}
+          value={confirmPassword}
+          placeholder='Conform password'
+        />
+        <Button disabled={loading} title='Register!' onPress={handleRegister} />
       </View>
     </View>
   );

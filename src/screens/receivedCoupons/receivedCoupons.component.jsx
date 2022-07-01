@@ -1,15 +1,30 @@
 import { FlatList } from "react-native";
+import { useEffect, useState } from "react";
+import { onSnapshot } from "firebase/firestore";
 
-import { DATA } from "../../data";
+import { useUser } from "../../contexts/userContext";
 
 import Coupon from "../../components/coupon/coupon.components";
 
-const ReceivedCoupons = () => (
-  <FlatList
-    data={DATA}
-    keyExtractor={(coupon) => coupon.id}
-    renderItem={({ item }) => <Coupon item={item} />}
-  />
-);
+const ReceivedCoupons = () => {
+  const { couponsReceivedRef } = useUser();
+  const [receivedCoupons, setReceivedCoupons] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(couponsReceivedRef, (snapshot) => {
+      setReceivedCoupons(snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() })));
+    });
+
+    return unsubscribe;
+  }, []);
+
+  return (
+    <FlatList
+      data={receivedCoupons}
+      keyExtractor={(coupon) => coupon.id}
+      renderItem={({ item }) => <Coupon item={item.data} />}
+    />
+  );
+};
 
 export default ReceivedCoupons;

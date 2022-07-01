@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import { getApp, getApps, initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { initializeAuth } from "firebase/auth";
 import { getReactNativePersistence } from "firebase/auth/react-native";
@@ -28,10 +28,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
 // Initialize Cloud Firestore and get a reference to the service
 export const db = getFirestore(app); // TODO: change 'db' to 'firestore'
 
 // Initialize authentication => this way because of async storage warning because RN has removed AsyncStorage from core
-export const auth = initializeAuth(app, { persistence: getReactNativePersistence(AsyncStorage) }); 
+export const auth = initializeAuth(app, { persistence: getReactNativePersistence(AsyncStorage) });

@@ -1,31 +1,27 @@
+import { useState } from "react";
 import { View, Text, Button } from "react-native";
 
-import { getAuth } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../firebase/firebase.config";
-
-import { writeTest } from "../../firebase/test.controller";
-import { addLinkedReceivedCoupons, logoutUser } from "../../firebase/firestore";
+import { useAuth } from "../../contexts/authContext";
 
 const SettingsScreen = () => {
-  async function getUserData() {
-    const user = getAuth().currentUser;
+  const [error, setError] = useState("");
+  const { logout } = useAuth();
 
-    const docRef = doc(db, "users", user.uid);
-    const docSnap = await getDoc(docRef);
+  async function handleLogout() {
+    setError("");
 
-    if (docSnap.exists()) {
-      console.log("Document data: ", docSnap.data());
-    } else {
-      console.log("No such document!");
+    try {
+      await logout();
+    } catch (error) {
+      console.error("Logout error: ", error);
+      setError("Failed to log out");
     }
   }
 
   return (
     <View>
-      <Button title='Write test data' onPress={() => writeTest()} />
-      <Button title='Get user data' onPress={() => addLinkedReceivedCoupons()} />
-      <Button title='Logout!' onPress={logoutUser} />
+      <Button title='Logout!' onPress={handleLogout} />
+      {!!error && <Text>{error}</Text>}
     </View>
   );
 };
