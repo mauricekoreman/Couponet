@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Toast from "react-native-toast-message";
 import { View, Text, TextInput, Button } from "react-native";
 import { useAuth } from "../../contexts/authContext";
 
@@ -15,19 +16,27 @@ const LoginScreen = ({ navigation }) => {
       setError("");
       setLoading(true);
       await login(email, password);
-    } catch (error) {
-      console.error("Login error: ", error);
+    } catch (err) {
+      console.error("Login error: ", err.code);
       setError("Failed to login");
     }
+
+    setLoading(false);
   }
+
+  useEffect(() => {
+    if (error) {
+      Toast.show({
+        type: "error",
+        text1: error,
+      });
+    }
+
+    setError("");
+  }, [error]);
 
   return (
     <View>
-      {!!error && (
-        <View>
-          <Text>{error}</Text>
-        </View>
-      )}
       <TextInput onChangeText={(text) => setEmail(text)} value={email} placeholder='Email' />
       <TextInput
         onChangeText={(text) => setPassword(text)}

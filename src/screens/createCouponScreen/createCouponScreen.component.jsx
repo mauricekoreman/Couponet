@@ -1,36 +1,67 @@
-import { useEffect, useState } from "react";
 import { View } from "react-native";
+import { useEffect, useState } from "react";
+import Toast from "react-native-toast-message";
+
+import { useUser } from "../../contexts/userContext";
 
 import PrimaryButton from "../../components/buttons/primaryButton/primaryButton.component";
 import Input from "../../components/input/input.component";
 
 import { styles } from "./createCouponScreen.styles";
-import { createNewCoupon } from "../../firebase/firestore";
+import { addDoc } from "firebase/firestore";
+import { useAuth } from "../../contexts/authContext";
+import { coupons } from "../../firebase/firestore.collections";
 
 const CreateCouponScreen = ({ navigation }) => {
+  const { userData } = useUser();
+  const { currentUser } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [quantity, setQuantity] = useState();
+  const [quantity, setQuantity] = useState("1");
   const [expirationDate, setExpirationDate] = useState("");
 
-  const [buttonTitle, setButtonTitle] = useState("Create coupon!");
+  async function handleCreateCoupon() {
+    try {
+      if (!title || !expirationDate) {
+        return setError("Fill in all required fields");
+      }
 
-  const submitCoupon = async () => {
-    const couponData = {
-      title,
-      description,
-      quantity,
-      expirationDate,
-    };
+      const couponData = {
+        title,
+        description,
+        quantity: Number(quantity),
+        expirationDate,
+        status: "idle",
+        to: userData.linked,
+        from: currentUser.uid,
+      };
 
-    const res = await createNewCoupon(couponData);
-    setButtonTitle("Loading...");
+      const couponRef = await addDoc(coupons, couponData);
 
-    if (res) {
-      setButtonTitle("Create coupon!");
-      navigation.goBack();
+      if (!!couponRef) {
+        navigation.goBack();
+      }
+    } catch (error) {
+      console.error("Create coupon error: ", error);
+      setError("Unable to create coupon...");
+    } finally {
+      setLoading(false);
     }
-  };
+  }
+
+  useEffect(() => {
+    if (error) {
+      Toast.show({
+        type: "error",
+        text1: error,
+      });
+    }
+
+    setError("");
+  }, [error]);
 
   return (
     <View style={styles.container}>
@@ -54,6 +85,7 @@ const CreateCouponScreen = ({ navigation }) => {
         label={"Quantity"}
         value={quantity}
         onChangeText={(text) => setQuantity(text)}
+        keyboardType='numeric'
         placeholder='Quantity'
         inputStyle={styles.inputStyle}
       />
@@ -64,7 +96,12 @@ const CreateCouponScreen = ({ navigation }) => {
         placeholder='Expiration date'
         inputStyle={styles.inputStyle}
       />
-      <PrimaryButton title={buttonTitle} onPress={submitCoupon} style={styles.createCouponButton} />
+      <PrimaryButton
+        disabled={loading}
+        title={loading ? "Loading..." : "Create coupon!"}
+        onPress={handleCreateCoupon}
+        style={styles.createCouponButton}
+      />
     </View>
   );
 };

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Toast from "react-native-toast-message";
 import { View, Text, TextInput, Button } from "react-native";
 import { useAuth } from "../../contexts/authContext";
 
@@ -21,21 +22,27 @@ const RegisterScreen = () => {
       setError("");
       setLoading(true);
       await register(email, password);
-    } catch (error) {
-      console.error("Register error: ", error);
+    } catch (err) {
+      console.error("Register error: ", err.code);
       setError("Failed to create an account");
     }
 
     setLoading(false);
   }
 
+  useEffect(() => {
+    if (error) {
+      Toast.show({
+        type: "error",
+        text1: error,
+      });
+    }
+
+    setError("");
+  }, [error]);
+
   return (
     <View>
-      {!!error && (
-        <View>
-          <Text>{error}</Text>
-        </View>
-      )}
       <View>
         <TextInput onChangeText={(text) => setName(text)} value={name} placeholder='Name' />
         <TextInput onChangeText={(text) => setEmail(text)} value={email} placeholder='Email' />

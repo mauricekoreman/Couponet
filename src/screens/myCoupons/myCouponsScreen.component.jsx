@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ScrollView, Text } from "react-native";
+import { ScrollView } from "react-native";
 import { onSnapshot } from "firebase/firestore";
 
 import { useUser } from "../../contexts/userContext";

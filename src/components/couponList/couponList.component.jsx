@@ -17,7 +17,7 @@ const CouponsList = ({ data = [] }) => {
         <View>
           <View collapsable={false}>
             {data.map((item) => (
-              <Coupon item={item.data} key={item.id} />
+              <Coupon item={item.data} id={item.id} key={item.id} />
             ))}
           </View>
         </View>

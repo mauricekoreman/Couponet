@@ -22,7 +22,7 @@ const ReceivedCoupons = () => {
     <FlatList
       data={receivedCoupons}
       keyExtractor={(coupon) => coupon.id}
-      renderItem={({ item }) => <Coupon item={item.data} />}
+      renderItem={({ item }) => <Coupon item={item.data} id={item.id} />}
     />
   );
 };

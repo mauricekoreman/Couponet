@@ -1,13 +1,18 @@
 import { View, Text, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const Coupon = ({ item }) => {
+const Coupon = ({ item, id }) => {
   const navigation = useNavigation();
 
   return (
     <Pressable
       unstable_pressDelay={40}
-      onPress={() => navigation.navigate("useCouponScreen", { itemTitle: item.title })}
+      onPress={() =>
+        navigation.navigate("useCouponScreen", {
+          couponId: id,
+          couponData: item,
+        })
+      }
       style={{ marginBottom: 10 }}
     >
       {({ pressed }) => (

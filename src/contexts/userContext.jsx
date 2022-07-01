@@ -1,4 +1,4 @@
-import { collection, doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, query, where } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";
 import { db } from "../firebase/firebase.config";
 import { useAuth } from "./authContext";
@@ -28,8 +28,8 @@ export function UserProvider({ children }) {
 
   const value = {
     userData,
-    couponsReceivedRef: collection(doc(db, "users", currentUser.uid), "coupons_received"),
-    couponsGivenRef: collection(doc(db, "users", currentUser.uid), "coupons_given"),
+    couponsReceivedRef: query(collection(db, "coupons"), where("to", "==", currentUser.uid)),
+    couponsGivenRef: query(collection(db, "coupons"), where("from", "==", currentUser.uid)),
   };
 
   return <UserContext.Provider value={value}>{!loading && children}</UserContext.Provider>;
