@@ -6,6 +6,8 @@ import { useUser } from "../../contexts/userContext";
 
 import Coupon from "../../components/coupon/coupon.components";
 
+import { styles } from "./receivedCoupons.styles";
+
 const ReceivedCoupons = () => {
   const { couponsReceivedRef } = useUser();
   const [receivedCoupons, setReceivedCoupons] = useState([]);
@@ -19,11 +21,14 @@ const ReceivedCoupons = () => {
   }, []);
 
   return (
-    <FlatList
-      data={receivedCoupons}
-      keyExtractor={(coupon) => coupon.id}
-      renderItem={({ item }) => <Coupon item={item.data} id={item.id} />}
-    />
+    <>
+      <FlatList
+        style={styles.screenContainer}
+        data={receivedCoupons}
+        keyExtractor={(coupon) => coupon.id}
+        renderItem={({ item }) => <Coupon item={item.data} id={item.id} />}
+      />
+    </>
   );
 };
 

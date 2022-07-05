@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import { ScrollView } from "react-native";
+import { useEffect, useState } from "react";
 import { onSnapshot } from "firebase/firestore";
 
 import { useUser } from "../../contexts/userContext";
@@ -12,6 +12,7 @@ import { styles } from "./myCoupons.styles";
 const MyCoupons = ({ navigation }) => {
   const { couponsGivenRef } = useUser();
   const [myCoupons, setMyCoupons] = useState([]);
+  const [pendingCoupons, setPendingCoupons] = useState([]);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(couponsGivenRef, (snapshot) => {
@@ -21,10 +22,18 @@ const MyCoupons = ({ navigation }) => {
     return unsubscribe;
   }, []);
 
+  useEffect(() => {
+    setPendingCoupons(myCoupons.filter((coupon) => coupon.data.status === "pending"));
+  }, [myCoupons]);
+
   return (
     <>
       <ScrollView>
-        <CouponsList data={myCoupons} />
+        <CouponsList
+          title={`Coupons used by ... (${pendingCoupons.length})`}
+          data={pendingCoupons}
+        />
+        <CouponsList title={"All coupons given"} data={myCoupons} />
       </ScrollView>
       <PrimaryButton
         title='Give new coupon'

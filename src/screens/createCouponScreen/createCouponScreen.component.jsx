@@ -33,6 +33,7 @@ const CreateCouponScreen = ({ navigation }) => {
         title,
         description,
         quantity: Number(quantity),
+        used: 0,
         expirationDate,
         status: "idle",
         to: userData.linked,

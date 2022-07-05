@@ -8,6 +8,8 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     width: "80%",
     alignItems: "center",
-    backgroundColor: "#FFF",
+  },
+  disabled: {
+    opacity: 0.5,
   },
 });

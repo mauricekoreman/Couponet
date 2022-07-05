@@ -12,7 +12,7 @@ const HomeTabNavigator = () => (
       component={ReceivedCoupons}
       options={{ title: "Received coupons" }}
     />
-    <Tab.Screen name='myCoupons' component={MyCoupons} options={{ title: "My coupons" }} />
+    <Tab.Screen name='myCoupons' component={MyCoupons} options={{ title: "Given coupons" }} />
   </Tab.Navigator>
 );
 
