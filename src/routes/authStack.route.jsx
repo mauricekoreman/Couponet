@@ -8,9 +8,16 @@ const Stack = createNativeStackNavigator();
 
 const AuthStack = () => (
   <NavigationContainer>
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerShadowVisible: false,
+        headerTitle: "",
+        statusBarHidden: false,
+        statusBarStyle: "dark",
+      }}
+    >
       <Stack.Screen name='login' component={LoginScreen} />
-      <Stack.Screen name='register' component={RegisterScreen} />
+      <Stack.Screen name='register' options={{ headerShown: true }} component={RegisterScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 );

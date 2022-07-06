@@ -3,12 +3,23 @@ const colors = {
   yellow: "#E8C412",
 };
 
-const fontSizes = {
-  xlarge: 30,
-  large: 20,
-  medium: 15,
-  small: 10,
-  xsmall: 7,
+const fontFamily = {
+  display: "Pmingliu",
+  regularThin: "MontserratThin",
+  regularLight: "MontserratLight",
+  regularRegular: "MontserratRegular",
+  regularMedium: "MontserratMedium",
+  regularSemiBold: "MontserratSemiBold",
+  regularBold: "MontserratBold",
 };
 
-export { colors, fontSizes };
+const fontSizes = {
+  xsmall: 7,
+  small: 10,
+  regular: 15,
+  medium: 18,
+  large: 23,
+  xlarge: 30,
+};
+
+export { colors, fontSizes, fontFamily };

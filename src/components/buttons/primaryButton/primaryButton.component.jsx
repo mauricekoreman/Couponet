@@ -1,4 +1,4 @@
-import { View, Button, Text, Pressable } from "react-native";
+import { Text, Pressable } from "react-native";
 
 import { styles } from "./primaryButton.styles";
 
@@ -13,7 +13,9 @@ const PrimaryButton = ({ title, onPress, disabled = false, style }) => (
       { backgroundColor: pressed ? "navy" : "#FFF" },
     ]}
   >
-    {({ pressed }) => <Text style={{ color: pressed ? "#FFF" : "#000" }}>{title}</Text>}
+    {({ pressed }) => (
+      <Text style={[styles.text, { color: pressed ? "#FFF" : "#000" }]}>{title}</Text>
+    )}
   </Pressable>
 );
 

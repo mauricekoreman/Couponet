@@ -1,7 +1,14 @@
+import { View, Text, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
-import { View, Text, TextInput, Button } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 import { useAuth } from "../../contexts/authContext";
+
+import { styles } from "./loginScreen.styles";
+import InputPrimary from "../../components/inputPrimary/inputPrimary.component";
+import TextButton from "../../components/buttons/textButton/textButton.component";
+import PrimaryButton from "../../components/buttons/primaryButton/primaryButton.component";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -35,16 +42,37 @@ const LoginScreen = ({ navigation }) => {
   }, [error]);
 
   return (
-    <View>
-      <TextInput onChangeText={(text) => setEmail(text)} value={email} placeholder='Email' />
-      <TextInput
-        onChangeText={(text) => setPassword(text)}
-        value={password}
-        placeholder='Password'
-      />
-      <Button disabled={loading} title='Login!' onPress={handleLogin} />
-      <Button title='No account? Register here!' onPress={() => navigation.navigate("register")} />
-    </View>
+    <KeyboardAwareScrollView style={{ backgroundColor: "#FFF" }}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.loginScreenContainer}>
+          <View style={styles.headingContainer}>
+            <Text style={styles.headingSmall}>Login to</Text>
+            <Text style={styles.headingLarge}>CouponMe</Text>
+          </View>
+
+          <View style={styles.contentContainer}>
+            <InputPrimary onChangeText={setEmail} value={email} placeholder='Email' />
+            <InputPrimary
+              secureTextEntry={true}
+              onChangeText={setPassword}
+              value={password}
+              placeholder='Password'
+            />
+            <PrimaryButton
+              style={{ marginTop: 30, width: "100%" }}
+              disabled={loading}
+              title='Login!'
+              onPress={handleLogin}
+            />
+            <TextButton
+              style={{ marginTop: 30 }}
+              title='No account? Register here!'
+              onPress={() => navigation.navigate("register")}
+            />
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAwareScrollView>
   );
 };
 

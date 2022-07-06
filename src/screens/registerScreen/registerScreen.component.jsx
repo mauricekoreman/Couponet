@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
-import { View, Text, TextInput, Button } from "react-native";
+import { View, Text, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 import { useAuth } from "../../contexts/authContext";
+
+import { styles } from "./registerScreen.styles";
+import InputPrimary from "../../components/inputPrimary/inputPrimary.component";
+import PrimaryButton from "../../components/buttons/primaryButton/primaryButton.component";
 
 const RegisterScreen = () => {
   const [name, setName] = useState("");
@@ -25,9 +31,8 @@ const RegisterScreen = () => {
     } catch (err) {
       console.error("Register error: ", err.code);
       setError("Failed to create an account");
+      setLoading(false);
     }
-
-    setLoading(false);
   }
 
   useEffect(() => {
@@ -42,24 +47,40 @@ const RegisterScreen = () => {
   }, [error]);
 
   return (
-    <View>
-      <View>
-        <TextInput onChangeText={(text) => setName(text)} value={name} placeholder='Name' />
-        <TextInput onChangeText={(text) => setEmail(text)} value={email} placeholder='Email' />
-        <TextInput
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          placeholder='Password'
-        />
-        <TextInput
-          onChangeText={(text) => setConfirmPassword(text)}
-          value={confirmPassword}
-          placeholder='Conform password'
-        />
-        <Button disabled={loading} title='Register!' onPress={handleRegister} />
-      </View>
-    </View>
+    <KeyboardAwareScrollView style={{ backgroundColor: "#FFF" }}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.registerScreenContainer}>
+          <View style={styles.headingContainer}>
+            <Text style={styles.headingSmall}>Register to</Text>
+            <Text style={styles.headingLarge}>CouponMe</Text>
+          </View>
+
+          <View style={styles.contentContainer}>
+            <InputPrimary onChangeText={setName} value={name} placeholder='Name' />
+            <InputPrimary onChangeText={setEmail} value={email} placeholder='Email' />
+            <InputPrimary
+              secureTextEntry={true}
+              onChangeText={setPassword}
+              value={password}
+              placeholder='Password'
+            />
+            <InputPrimary
+              secureTextEntry={true}
+              onChangeText={setConfirmPassword}
+              value={confirmPassword}
+              placeholder='Conform password'
+            />
+            <PrimaryButton
+              style={{ marginTop: 30, width: "100%" }}
+              disabled={loading}
+              title='Register!'
+              onPress={handleRegister}
+            />
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAwareScrollView>
   );
-};
+};;
 
 export default RegisterScreen;
