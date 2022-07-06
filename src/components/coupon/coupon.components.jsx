@@ -24,6 +24,7 @@ const Coupon = ({ item, id }) => {
         <View
           style={[
             styles.container,
+            status === "pending" && { borderColor: "#E8C412" },
             status === "finished" && styles.disabled,
             {
               backgroundColor: pressed ? "#CCC" : "#FFF",

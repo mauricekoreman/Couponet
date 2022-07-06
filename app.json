@@ -16,9 +16,11 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "bundleIdentifier": "com.mgkor.couponet",
       "supportsTablet": true
     },
     "android": {
+      "package": "com.mgkor.couponet",
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -27,5 +29,8 @@
     "web": {
       "favicon": "./src/assets/favicon.png"
     }
+  },
+  "android": {
+    "googleServicesFile": "./google-services.json"
   }
 }

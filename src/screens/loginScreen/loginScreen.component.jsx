@@ -19,9 +19,8 @@ const LoginScreen = ({ navigation }) => {
     } catch (err) {
       console.error("Login error: ", err.code);
       setError("Failed to login");
+      setLoading(false);
     }
-
-    setLoading(false);
   }
 
   useEffect(() => {

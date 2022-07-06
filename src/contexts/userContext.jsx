@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, query, where } from "firebase/firestore";
+import { collection, doc, getDoc, query, updateDoc, where } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";
 import { db } from "../firebase/firebase.config";
 import { useAuth } from "./authContext";
@@ -22,12 +22,24 @@ export function UserProvider({ children }) {
     setLoading(false);
   }
 
+  async function updateUserData(data) {
+    const userDocRef = doc(db, "users", currentUser.uid);
+    await updateDoc(userDocRef, data);
+
+    const newUserData = Object.assign(userData, data);
+
+    setUserData(newUserData);
+
+    return true;
+  }
+
   useEffect(() => {
     getUserData();
   }, []);
 
   const value = {
     userData,
+    updateUserData,
     couponsReceivedRef: query(collection(db, "coupons"), where("to", "==", currentUser.uid)),
     couponsGivenRef: query(collection(db, "coupons"), where("from", "==", currentUser.uid)),
   };

@@ -28,7 +28,7 @@ const CouponsList = ({ data = [], title }) => {
         </View>
       </TouchableWithoutFeedback>
       {open && (
-        <View>
+        <View style={{ paddingHorizontal: 20 }}>
           <View collapsable={false}>
             {data.map((item) => (
               <Coupon item={item.data} id={item.id} key={item.id} />

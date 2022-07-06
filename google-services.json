@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "940705987429",
+    "project_id": "couponet-c8c94",
+    "storage_bucket": "couponet-c8c94.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:940705987429:android:3328d23d48daeaf2ba7f8c",
+        "android_client_info": {
+          "package_name": "com.mgkor.couponet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "940705987429-h2qmhi2uhb92vpuiapfgci4j78el9vnd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4ZpuihF7KTyu5kKcOOSB2mPT3KnXT5lA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "940705987429-h2qmhi2uhb92vpuiapfgci4j78el9vnd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

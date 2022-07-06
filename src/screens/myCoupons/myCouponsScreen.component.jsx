@@ -1,4 +1,4 @@
-import { ScrollView } from "react-native";
+import { Button, ScrollView } from "react-native";
 import { useEffect, useState } from "react";
 import { onSnapshot } from "firebase/firestore";
 
@@ -8,11 +8,26 @@ import CouponsList from "../../components/couponList/couponList.component";
 import PrimaryButton from "../../components/buttons/primaryButton/primaryButton.component";
 
 import { styles } from "./myCoupons.styles";
+import NavigatorTitle from "../../components/navigatorTitle/navigatorBadge.component";
 
 const MyCoupons = ({ navigation }) => {
   const { couponsGivenRef } = useUser();
   const [myCoupons, setMyCoupons] = useState([]);
   const [pendingCoupons, setPendingCoupons] = useState([]);
+
+  function handleNewParams() {
+    navigation.setOptions({
+      tabBarLabel: () => <NavigatorTitle text={"Received coupons"} badge />,
+    });
+  }
+
+  useEffect(() => {
+    navigation.setOptions({
+      tabBarLabel: () => (
+        <NavigatorTitle text={"Received coupons"} badge={pendingCoupons.length > 0} />
+      ),
+    });
+  }, [pendingCoupons]);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(couponsGivenRef, (snapshot) => {
@@ -40,6 +55,7 @@ const MyCoupons = ({ navigation }) => {
         onPress={() => navigation.navigate("createCouponScreen")}
         style={styles.createCouponButton}
       />
+      <Button title='Set params' onPress={handleNewParams} />
     </>
   );
 };
