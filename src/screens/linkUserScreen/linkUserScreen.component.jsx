@@ -1,23 +1,42 @@
-import { useState } from "react";
-import { View, Text, TextInput } from "react-native";
+import { useEffect } from "react";
+import { View, Text } from "react-native";
+import QRCode from "react-native-qrcode-svg";
+import { onSnapshot } from "firebase/firestore";
 
+import { useUser } from "../../contexts/userContext";
 import PrimaryButton from "../../components/buttons/primaryButton/primaryButton.component";
-import { linkWithUser } from "../../firebase/firestore";
 
-const LinkUserScreen = () => {
-  const [linkUserEmail, setLinkUserEmail] = useState("");
+import { styles } from "./linkUserScreen.styles";
+
+const LinkUserScreen = ({ navigation }) => {
+  const { userData, updateUserData, userDocRef } = useUser();
+
+  // create a subscription that listens to userData.linked firestore
+  useEffect(() => {
+    const unsubscribe = onSnapshot(userDocRef, (doc) => {
+      if (doc.data().linked) {
+        updateUserData(doc.data());
+      }
+    });
+
+    return unsubscribe;
+  }, []);
 
   return (
-    <View>
-      <Text>Link with a user!</Text>
-      <TextInput
-        value={linkUserEmail}
-        onChangeText={(text) => setLinkUserEmail(text)}
-        placeholder='Their Email Address'
-      />
+    <View style={styles.linkUserScreenContainer}>
+      <View style={styles.headingContainer}>
+        <Text style={styles.heading}>Link with a user!</Text>
+        <Text style={styles.explanation}>
+          Let your partner scan your QR code or the other way around to link!
+        </Text>
+      </View>
+      <View style={styles.qrcodeContainer}>
+        <QRCode size={200} value={userData.email} />
+      </View>
       <PrimaryButton
-        title='LINK!'
-        // onPress={async () => linkWithUser(linkUserEmail).then((res) => dispatch(setLinked(res)))}
+        style={styles.button}
+        title='Scan QR code'
+        onPress={() => navigation.navigate("barcodeScannerScreen")}
       />
     </View>
   );

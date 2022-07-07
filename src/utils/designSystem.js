@@ -18,8 +18,8 @@ const fontSizes = {
   small: 10,
   regular: 15,
   medium: 18,
-  large: 23,
-  xlarge: 30,
+  large: 50,
+  xlarge: 60,
 };
 
 export { colors, fontSizes, fontFamily };

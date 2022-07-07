@@ -15,12 +15,6 @@ const MyCoupons = ({ navigation }) => {
   const [myCoupons, setMyCoupons] = useState([]);
   const [pendingCoupons, setPendingCoupons] = useState([]);
 
-  function handleNewParams() {
-    navigation.setOptions({
-      tabBarLabel: () => <NavigatorTitle text={"Received coupons"} badge />,
-    });
-  }
-
   useEffect(() => {
     navigation.setOptions({
       tabBarLabel: () => (
@@ -55,7 +49,6 @@ const MyCoupons = ({ navigation }) => {
         onPress={() => navigation.navigate("createCouponScreen")}
         style={styles.createCouponButton}
       />
-      <Button title='Set params' onPress={handleNewParams} />
     </>
   );
 };

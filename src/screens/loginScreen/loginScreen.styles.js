@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
   },
   headingLarge: {
     fontFamily: fontFamily.display,
-    fontSize: 60,
+    fontSize: fontSizes.xlarge,
   },
   contentContainer: {
     paddingHorizontal: "10%",

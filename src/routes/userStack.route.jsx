@@ -13,6 +13,7 @@ import CreateCouponScreen from "../screens/createCouponScreen/createCouponScreen
 import { useUser } from "../contexts/userContext";
 import usePushNotifications from "../utils/hooks/usePushNotifications";
 import generatePushNotificationsToken from "../utils/expo/generatePushNotificationsToken";
+import BarcodeScannerScreen from "../screens/barcodeScannerScreen/barcodeScannerScreen.screen";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,12 +26,6 @@ const UserStack = () => {
     // put token in firebase
     generatePushNotificationsToken().then((token) => updateUserData({ pushToken: token }));
   }, []);
-
-  // useEffect(() => {
-  //   console.log("push token: ", userData.pushToken);
-  //   console.log("notification: ", notification);
-  //   console.log("----------");
-  // }, [userData.pushToken, notification]);
 
   return (
     <NavigationContainer>
@@ -56,7 +51,18 @@ const UserStack = () => {
             })}
           />
         ) : (
-          <Stack.Screen name='linkUserScreen' component={LinkUserScreen} />
+          <>
+            <Stack.Screen
+              name='linkUserScreen'
+              component={LinkUserScreen}
+              options={{ headerTitle: "" }}
+            />
+            <Stack.Screen
+              name='barcodeScannerScreen'
+              component={BarcodeScannerScreen}
+              options={{ animation: "slide_from_bottom" }}
+            />
+          </>
         )}
         <Stack.Screen name='useCouponScreen' component={UseCoupon} />
         <Stack.Screen name='settingsScreen' component={SettingsScreen} />
