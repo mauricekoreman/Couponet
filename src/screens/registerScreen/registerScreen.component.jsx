@@ -27,7 +27,7 @@ const RegisterScreen = () => {
     try {
       setError("");
       setLoading(true);
-      await register(email, password);
+      await register(name, email, password);
     } catch (err) {
       console.error("Register error: ", err.code);
       setError("Failed to create an account");

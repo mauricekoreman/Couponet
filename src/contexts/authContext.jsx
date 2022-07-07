@@ -4,8 +4,9 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";
-import { auth } from "../firebase/firebase.config";
+import { auth, db } from "../firebase/firebase.config";
 
 const AuthContext = createContext();
 
@@ -17,8 +18,14 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
-  function register(email, password) {
-    return createUserWithEmailAndPassword(auth, email, password);
+  async function register(name, email, password) {
+    return createUserWithEmailAndPassword(auth, email, password).then(async (user) => {
+      await setDoc(doc(db, "users", user.user.uid), {
+        email: email,
+        name: name,
+        linked: null,
+      });
+    });
   }
 
   function login(email, password) {
