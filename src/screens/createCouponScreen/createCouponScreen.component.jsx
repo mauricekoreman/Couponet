@@ -71,7 +71,7 @@ const CreateCouponScreen = ({ navigation }) => {
         value={title}
         onChangeText={setTitle}
         placeholder='Title'
-        inputStyle={styles.inputStyle}
+        style={styles.inputStyle}
       />
       <Input
         label={"Description"}
@@ -80,7 +80,7 @@ const CreateCouponScreen = ({ navigation }) => {
         placeholder='Description'
         multiline
         numberOfLines={4}
-        inputStyle={styles.inputStyle}
+        style={styles.inputStyle}
       />
       <Input
         label={"Quantity"}
@@ -88,14 +88,14 @@ const CreateCouponScreen = ({ navigation }) => {
         onChangeText={(text) => setQuantity(text)}
         keyboardType='numeric'
         placeholder='Quantity'
-        inputStyle={styles.inputStyle}
+        style={styles.inputStyle}
       />
       <Input
         label={"Date"}
         value={expirationDate}
         onChangeText={(text) => setExpirationDate(text)}
         placeholder='Expiration date'
-        inputStyle={styles.inputStyle}
+        style={styles.inputStyle}
       />
       <PrimaryButton
         disabled={loading}

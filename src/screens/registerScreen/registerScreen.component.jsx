@@ -6,8 +6,10 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { useAuth } from "../../contexts/authContext";
 
 import { styles } from "./registerScreen.styles";
-import InputPrimary from "../../components/inputPrimary/inputPrimary.component";
 import PrimaryButton from "../../components/buttons/primaryButton/primaryButton.component";
+import Input from "../../components/input/input.component";
+import Square from "../../components/elements/square.component";
+import { colors } from "../../utils/designSystem";
 
 const RegisterScreen = () => {
   const [name, setName] = useState("");
@@ -47,31 +49,53 @@ const RegisterScreen = () => {
   }, [error]);
 
   return (
-    <KeyboardAwareScrollView style={{ backgroundColor: "#FFF" }}>
+    <KeyboardAwareScrollView style={styles.background}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.registerScreenContainer}>
+          <Square
+            color={colors.blue}
+            height={32}
+            width={32}
+            borderRadius={7}
+            containerStyle={{ right: 60 }}
+          />
           <View style={styles.headingContainer}>
             <Text style={styles.headingSmall}>Register to</Text>
             <Text style={styles.headingLarge}>CouponMe</Text>
           </View>
 
           <View style={styles.contentContainer}>
-            <InputPrimary onChangeText={setName} value={name} placeholder='Name' />
-            <InputPrimary onChangeText={setEmail} value={email} placeholder='Email' />
-            <InputPrimary
+            <Square
+              containerStyle={{ transform: [{ translateX: -30 }, { translateY: -43 }] }}
+              color={colors.pink}
+              borderRadius={10}
+            />
+            <Square
+              color={colors.purple}
+              borderRadius={10}
+              width={130}
+              containerStyle={{
+                right: 0,
+                bottom: 0,
+                transform: [{ translateX: 10 }, { translateY: -80 }],
+              }}
+            />
+            <Input onChangeText={setName} value={name} placeholder='Name' />
+            <Input onChangeText={setEmail} value={email} placeholder='Email' />
+            <Input
               secureTextEntry={true}
               onChangeText={setPassword}
               value={password}
               placeholder='Password'
             />
-            <InputPrimary
+            <Input
               secureTextEntry={true}
               onChangeText={setConfirmPassword}
               value={confirmPassword}
               placeholder='Conform password'
             />
             <PrimaryButton
-              style={{ marginTop: 30, width: "100%" }}
+              style={{ marginTop: 30, marginBottom: 2, width: "100%" }}
               disabled={loading}
               title='Register!'
               onPress={handleRegister}

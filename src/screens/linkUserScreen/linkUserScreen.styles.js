@@ -1,16 +1,18 @@
 import { StyleSheet } from "react-native";
 
-import { fontSizes, fontFamily } from "../../utils/designSystem";
+import { fontSizes, fontFamily, colors } from "../../utils/designSystem";
 
 export const styles = StyleSheet.create({
   linkUserScreenContainer: {
     flex: 1,
-    backgroundColor: "#FFF",
+    backgroundColor: colors.backgroundColor,
+    paddingHorizontal: "10%",
   },
   heading: {
     alignSelf: "center",
-    fontFamily: fontFamily.display,
-    fontSize: fontSizes.large,
+    fontFamily: fontFamily.displayRegular,
+    fontSize: 40,
+    textAlign: "center",
   },
   explanation: {
     alignSelf: "center",
@@ -25,6 +27,7 @@ export const styles = StyleSheet.create({
     marginTop: 50,
   },
   button: {
+    width: "100%",
     alignSelf: "center",
     position: "absolute",
     bottom: 50,

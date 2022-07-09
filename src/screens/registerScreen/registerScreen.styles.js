@@ -1,8 +1,11 @@
 import { StyleSheet } from "react-native";
 
-import { fontFamily, fontSizes } from "../../utils/designSystem";
+import { colors, fontFamily, fontSizes } from "../../utils/designSystem";
 
 export const styles = StyleSheet.create({
+  background: {
+    backgroundColor: colors.backgroundColor,
+  },
   registerScreenContainer: {
     paddingTop: 30,
   },
@@ -11,12 +14,12 @@ export const styles = StyleSheet.create({
     marginBottom: 80,
   },
   headingSmall: {
-    fontFamily: fontFamily.regularMedium,
+    fontFamily: fontFamily.displayRegular,
     fontSize: fontSizes.regular,
   },
   headingLarge: {
-    fontFamily: fontFamily.display,
-    fontSize: 60,
+    fontFamily: fontFamily.displayRegular,
+    fontSize: fontSizes.xlarge,
   },
   contentContainer: {
     flex: 1,

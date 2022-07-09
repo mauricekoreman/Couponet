@@ -1,7 +1,9 @@
 import { StyleSheet } from "react-native";
+import { colors } from "../../utils/designSystem";
 
 export const styles = StyleSheet.create({
   screenContainer: {
-    padding: 20,
+    paddingVertical: 20,
+    backgroundColor: colors.backgroundColor,
   },
 });

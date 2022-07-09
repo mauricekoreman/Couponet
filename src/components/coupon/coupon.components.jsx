@@ -3,8 +3,10 @@ import { useNavigation } from "@react-navigation/native";
 
 import { styles } from "./coupon.styles";
 
-const Coupon = ({ item, id }) => {
+const Coupon = ({ item, id, color }) => {
   const navigation = useNavigation();
+
+  // console.log(color);
 
   const { title, quantity, used, status } = item;
 
@@ -18,27 +20,42 @@ const Coupon = ({ item, id }) => {
           couponData: item,
         })
       }
-      style={{ marginBottom: 10 }}
+      style={{ marginBottom: 30, width: "90%", alignSelf: "center" }}
     >
       {({ pressed }) => (
-        <View
-          style={[
-            styles.container,
-            status === "pending" && { borderColor: "#E8C412" },
-            status === "finished" && styles.disabled,
-            {
-              backgroundColor: pressed ? "#CCC" : "#FFF",
-            },
-          ]}
-        >
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.quantity}>QUANTITY:</Text>
-          <View style={styles.quantityBoxContainer}>
-            {[...Array(quantity)].map((_, i) => {
-              return <View key={i} style={[styles.quantityBox, i + 1 <= used && styles.green]} />;
-            })}
+        <>
+          <View style={styles.shadow} />
+          <View style={styles.whiteBack} />
+          <View
+            style={[
+              styles.container,
+              { backgroundColor: color },
+              status === "pending" && { borderColor: "#E8C412" },
+              status === "finished" && styles.disabled,
+              pressed && styles.pressed,
+            ]}
+          >
+            <Text style={styles.title}>{title}</Text>
+            <View style={{ alignItems: "center", position: "absolute", bottom: 10 }}>
+              <Text style={styles.quantity}>Quantity:</Text>
+              <View style={styles.quantityBoxContainer}>
+                {[...Array(quantity)].map((_, i) => {
+                  return (
+                    <View key={i} style={styles.quantityBox}>
+                      <View style={styles.quantityBoxShadow} />
+                      <View
+                        style={[
+                          styles.box,
+                          { backgroundColor: i + 1 <= used ? "#B5B4B4" : "#FFF" },
+                        ]}
+                      />
+                    </View>
+                  );
+                })}
+              </View>
+            </View>
           </View>
-        </View>
+        </>
       )}
     </Pressable>
   );

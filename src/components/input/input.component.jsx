@@ -1,12 +1,20 @@
-import { View, TextInput, Text } from "react-native";
+import { TextInput, View } from "react-native";
 
 import { styles } from "./input.styles";
 
-const Input = ({ label, inputStyle, ...props }) => (
-  <View style={[styles.container, inputStyle]}>
-    <Text>{label}</Text>
-    <TextInput {...props} style={{ maxHeight: 80 }} />
-  </View>
-);
+const Input = ({ style, placeholder, setValue, value, ...props }) => {
+  return (
+    <View style={styles.container}>
+      <View style={styles.shadow} />
+      <TextInput
+        style={[styles.input, style]}
+        onChangeText={(text) => setValue(text)}
+        value={value}
+        placeholder={placeholder}
+        {...props}
+      />
+    </View>
+  );
+};
 
 export default Input;

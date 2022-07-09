@@ -14,6 +14,7 @@ import { useUser } from "../contexts/userContext";
 import usePushNotifications from "../utils/hooks/usePushNotifications";
 import generatePushNotificationsToken from "../utils/expo/generatePushNotificationsToken";
 import BarcodeScannerScreen from "../screens/barcodeScannerScreen/barcodeScannerScreen.screen";
+import { colors, fontFamily, fontSizes } from "../utils/designSystem";
 
 const Stack = createNativeStackNavigator();
 
@@ -31,10 +32,11 @@ const UserStack = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          statusBarStyle: "dark",
           headerTitleAlign: "center",
           headerShadowVisible: false,
           headerBackTitleVisible: false,
+          headerStyle: { backgroundColor: colors.backgroundColor },
+          headerTitleStyle: { fontFamily: fontFamily.displayBold, fontSize: fontSizes.large },
         }}
       >
         {userData?.linked ? (
@@ -45,7 +47,7 @@ const UserStack = () => {
               headerTitle: "CouponMe",
               headerRight: () => (
                 <TouchableOpacity onPress={() => navigation.navigate("settingsScreen")}>
-                  <Feather name='settings' size={24} />
+                  <Feather name='settings' size={28} />
                 </TouchableOpacity>
               ),
             })}

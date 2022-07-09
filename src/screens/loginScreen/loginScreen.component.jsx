@@ -6,9 +6,12 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { useAuth } from "../../contexts/authContext";
 
 import { styles } from "./loginScreen.styles";
-import InputPrimary from "../../components/inputPrimary/inputPrimary.component";
+import { colors } from "../../utils/designSystem";
+
 import TextButton from "../../components/buttons/textButton/textButton.component";
 import PrimaryButton from "../../components/buttons/primaryButton/primaryButton.component";
+import Input from "../../components/input/input.component";
+import Square from "../../components/elements/square.component";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -42,24 +45,36 @@ const LoginScreen = ({ navigation }) => {
   }, [error]);
 
   return (
-    <KeyboardAwareScrollView style={{ backgroundColor: "#FFF" }}>
+    <KeyboardAwareScrollView style={styles.background}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.loginScreenContainer}>
+          <Square
+            color={colors.blue}
+            height={32}
+            width={32}
+            borderRadius={7}
+            containerStyle={{ right: 60 }}
+          />
           <View style={styles.headingContainer}>
             <Text style={styles.headingSmall}>Login to</Text>
             <Text style={styles.headingLarge}>CouponMe</Text>
           </View>
 
           <View style={styles.contentContainer}>
-            <InputPrimary onChangeText={setEmail} value={email} placeholder='Email' />
-            <InputPrimary
+            <Square
+              containerStyle={{ transform: [{ translateX: -30 }, { translateY: -43 }] }}
+              color={colors.pink}
+              borderRadius={10}
+            />
+            <Input onChangeText={setEmail} value={email} placeholder='Email' />
+            <Input
               secureTextEntry={true}
               onChangeText={setPassword}
               value={password}
               placeholder='Password'
             />
             <PrimaryButton
-              style={{ marginTop: 30, width: "100%" }}
+              style={{ marginTop: 70, width: "100%" }}
               disabled={loading}
               title='Login!'
               onPress={handleLogin}

@@ -1,24 +1,33 @@
 import { StyleSheet } from "react-native";
 
+import { fontFamily, fontSizes } from "../../utils/designSystem";
+
 export const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     width: "100%",
-    height: 150,
-    paddingTop: 40,
+    height: 180,
     paddingHorizontal: 40,
     borderWidth: 2,
+    borderRadius: 10,
+    justifyContent: "center",
+    paddingBottom: 20,
+  },
+  pressed: {
+    transform: [{ translateX: 2 }, { translateY: 2 }],
   },
   disabled: {
-    opacity: 0.4,
+    opacity: 0.5,
   },
   title: {
-    fontSize: 18,
+    textAlign: "center",
+    fontFamily: fontFamily.displayBold,
+    fontSize: fontSizes.large,
   },
   quantity: {
     marginTop: 30,
-    fontSize: 10,
-    letterSpacing: 3,
+    fontFamily: fontFamily.displayRegular,
+    fontSize: fontSizes.small,
   },
   quantityBoxContainer: {
     flexDirection: "row",
@@ -27,13 +36,42 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   quantityBox: {
-    height: 10,
+    height: 17,
     width: 30,
-    borderWidth: 1,
     margin: 2,
+    backgroundColor: "#FFF",
     borderColor: "black",
+  },
+  box: {
+    height: "100%",
+    width: "100%",
+    borderWidth: 1,
+  },
+  quantityBoxShadow: {
+    position: "absolute",
+    height: "100%",
+    width: "100%",
+    top: 1,
+    right: -1,
+    backgroundColor: "#000",
   },
   green: {
     backgroundColor: "green",
+  },
+  shadow: {
+    position: "absolute",
+    backgroundColor: "#000",
+    height: "100%",
+    width: "100%",
+    borderRadius: 10,
+    top: 2,
+    right: -2,
+  },
+  whiteBack: {
+    position: "absolute",
+    backgroundColor: "#FFF",
+    height: "100%",
+    width: "100%",
+    borderRadius: 10,
   },
 });
