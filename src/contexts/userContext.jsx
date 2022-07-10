@@ -18,6 +18,7 @@ export function UserProvider({ children }) {
   const userDocRef = doc(db, "users", currentUser.uid);
 
   async function getUserData() {
+    // Get user data
     const userSnap = await getDoc(userDocRef);
 
     setUserData(userSnap.data());
@@ -37,7 +38,7 @@ export function UserProvider({ children }) {
 
   async function linkUser(email) {
     // add email to emailUser.linked
-    const linkedUserQuery = query(collection(db, "users"), where("email", "==", email));
+    const linkedUserQuery = query(collection(db, "users"), where("email", "==", email)); // TODO: add && "linked" == null
     const linkedUserSnap = await getDocs(linkedUserQuery);
 
     if (linkedUserSnap.size !== 1) {
@@ -46,12 +47,16 @@ export function UserProvider({ children }) {
 
     // Get the id and reference
     const linkedUserId = linkedUserSnap.docs[0].id;
+    const linkedUserName = linkedUserSnap.docs[0].data().name;
     const linkedUserDocRef = doc(db, "users", linkedUserId);
 
-    await updateUserData({ linked: linkedUserId });
+    // Update the document of the current user
+    await updateUserData({ linked: linkedUserId, linkedUserName: linkedUserName });
 
+    // Update the document of the linked user
     await updateDoc(linkedUserDocRef, {
       linked: currentUser.uid,
+      linkedUserName: userData.name,
     });
   }
 

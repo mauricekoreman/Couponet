@@ -55,9 +55,6 @@ export const styles = StyleSheet.create({
     right: -1,
     backgroundColor: "#000",
   },
-  green: {
-    backgroundColor: "green",
-  },
   shadow: {
     position: "absolute",
     backgroundColor: "#000",

@@ -1,8 +1,8 @@
-import { Pressable, Text } from "react-native";
+import { Pressable, Text, View } from "react-native";
 
 import { styles } from "./textButton.styles";
 
-const TextButton = ({ title, onPress, disabled = false, style }) => (
+const TextButton = ({ title, icon, onPress, disabled = false, style }) => (
   <Pressable
     disabled={disabled}
     onPress={onPress}
@@ -13,7 +13,12 @@ const TextButton = ({ title, onPress, disabled = false, style }) => (
       { opacity: pressed ? 0.8 : 1 },
     ]}
   >
-    {({ pressed }) => <Text style={styles.btnText}>{title}</Text>}
+    {({ pressed }) => (
+      <View style={styles.btnContainer}>
+        {icon}
+        <Text style={[styles.btnText, icon && { marginLeft: 10 }]}>{title}</Text>
+      </View>
+    )}
   </Pressable>
 );
 

@@ -22,7 +22,7 @@ const fontFamily = {
 
 const fontSizes = {
   xsmall: 7,
-  small: 10,
+  small: 13,
   regular: 18,
   medium: 20,
   large: 26,

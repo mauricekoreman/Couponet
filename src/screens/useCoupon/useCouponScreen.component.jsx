@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import { useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -11,6 +11,7 @@ import PrimaryButton from "../../components/buttons/primaryButton/primaryButton.
 import { styles } from "./useCouponScreen.styles";
 import sendPushNotification from "../../utils/expo/sendPushNotification";
 import { useUser } from "../../contexts/userContext";
+import Sticker from "../../components/sticker/sticker.component";
 
 const UseCoupon = ({ route }) => {
   const { currentUser } = useAuth();
@@ -97,29 +98,41 @@ const UseCoupon = ({ route }) => {
   return (
     <View style={styles.container}>
       <View style={styles.couponContainer}>
-        <Text style={styles.couponTitle}>{title}</Text>
-        <View style={styles.divider} />
-        <Text style={styles.couponDesc}>{description}</Text>
-        <Text style={styles.quantity}>QUANTITY</Text>
-        <View style={styles.quantityBoxContainer}>
-          {[...Array(quantity)].map((_, i) => {
-            return (
-              <View key={i} style={[styles.quantityBox, i + 1 <= usedState && styles.green]} />
-            );
-          })}
+        <View style={styles.shadow} />
+        <View style={styles.coupon}>
+          <Text style={styles.couponTitle}>{title}</Text>
+          <Text style={styles.couponDesc}>{description}</Text>
+
+          {/* <View style={{ alignItems: "center", position: "absolute", bottom: 10 }}> */}
+          <View style={{ alignItems: "center" }}>
+            <Text style={styles.quantity}>Quantity</Text>
+            <View style={styles.quantityBoxContainer}>
+              {[...Array(quantity)].map((_, i) => {
+                return (
+                  <View key={i} style={styles.quantityBox}>
+                    <View style={styles.quantityBoxShadow} />
+                    <View
+                      style={[styles.box, { backgroundColor: i + 1 <= used ? "#B5B4B4" : "#FFF" }]}
+                    />
+                  </View>
+                );
+              })}
+            </View>
+          </View>
         </View>
       </View>
-      <Text>Status: {statusState}</Text>
       {statusState === "pending" && (
-        <Text style={{ color: "#E8C412", textAlign: "center", paddingVertical: 20 }}>
+        <Text style={styles.statusText}>
           {from === currentUser.uid
-            ? "... has used this coupon and is waiting for you to confirm that it has been fulfilled!"
-            : "Status: waiting for ... to confirm completion"}
+            ? `${userData.linkedUserName} has used this coupon and is waiting for you to confirm that it has been fulfilled!`
+            : `Status: waiting for ${userData.linkedUserName} to confirm completion`}
         </Text>
       )}
+      <Sticker />
       <PrimaryButton
         disabled={checkIfBtnDisabled()}
         title={from === currentUser.uid ? "Confirm used!" : "Use coupon!"}
+        style={styles.button}
         onPress={from === currentUser.uid ? handleConfirmUsed : handleUseCoupon}
       />
     </View>

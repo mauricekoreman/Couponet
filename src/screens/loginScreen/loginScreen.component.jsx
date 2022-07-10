@@ -80,7 +80,7 @@ const LoginScreen = ({ navigation }) => {
               onPress={handleLogin}
             />
             <TextButton
-              style={{ marginTop: 30 }}
+              style={{ marginTop: 30, alignItems: "center" }}
               title='No account? Register here!'
               onPress={() => navigation.navigate("register")}
             />

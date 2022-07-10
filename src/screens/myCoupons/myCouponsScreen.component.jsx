@@ -1,4 +1,4 @@
-import { Button, ScrollView, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { useEffect, useState } from "react";
 import { onSnapshot } from "firebase/firestore";
 
@@ -11,7 +11,7 @@ import { styles } from "./myCoupons.styles";
 import NavigatorTitle from "../../components/navigatorTitle/navigatorBadge.component";
 
 const MyCoupons = ({ navigation }) => {
-  const { couponsGivenRef } = useUser();
+  const { couponsGivenRef, userData } = useUser();
   const [myCoupons, setMyCoupons] = useState([]);
   const [pendingCoupons, setPendingCoupons] = useState([]);
 
@@ -43,7 +43,7 @@ const MyCoupons = ({ navigation }) => {
     <View style={styles.screenContainer}>
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         <CouponsList
-          title={`Coupons used by ... (${pendingCoupons.length})`}
+          title={`Coupons used by ${userData.linkedUserName} (${pendingCoupons.length})`}
           data={pendingCoupons}
         />
         <CouponsList title={"All coupons given"} data={myCoupons} />

@@ -6,8 +6,6 @@ import { styles } from "./coupon.styles";
 const Coupon = ({ item, id, color }) => {
   const navigation = useNavigation();
 
-  // console.log(color);
-
   const { title, quantity, used, status } = item;
 
   return (

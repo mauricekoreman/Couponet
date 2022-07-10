@@ -3,17 +3,22 @@ import { StyleSheet } from "react-native";
 import { fontFamily, fontSizes } from "../../utils/designSystem";
 
 export const styles = StyleSheet.create({
-  container: {
-    marginBottom: 15,
+  label: {
+    fontFamily: fontFamily.regularMedium,
+    fontSize: fontSizes.regular,
+    marginBottom: 5,
   },
   input: {
-    paddingVertical: 10,
     paddingHorizontal: 20,
     borderWidth: 2,
     borderRadius: 10,
     fontFamily: fontFamily.regularMedium,
     fontSize: fontSizes.regular,
     backgroundColor: "#FFF",
+    paddingVertical: 10,
+  },
+  textArea: {
+    textAlignVertical: "top",
   },
   shadow: {
     position: "absolute",

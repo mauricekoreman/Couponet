@@ -66,9 +66,17 @@ const UserStack = () => {
             />
           </>
         )}
-        <Stack.Screen name='useCouponScreen' component={UseCoupon} />
-        <Stack.Screen name='settingsScreen' component={SettingsScreen} />
-        <Stack.Screen name='createCouponScreen' component={CreateCouponScreen} />
+        <Stack.Screen name='useCouponScreen' options={{ title: "" }} component={UseCoupon} />
+        <Stack.Screen
+          name='settingsScreen'
+          options={{ title: "Settings" }}
+          component={SettingsScreen}
+        />
+        <Stack.Screen
+          name='createCouponScreen'
+          options={{ title: "New coupon" }}
+          component={CreateCouponScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
