@@ -5,7 +5,7 @@ import { fontFamily, fontSizes } from "../../utils/designSystem";
 export const styles = StyleSheet.create({
   listButton: {
     paddingVertical: 20,
-    paddingHorizontal: "7%",
+    paddingHorizontal: "5%",
     flexDirection: "row",
     alignItems: "center",
   },

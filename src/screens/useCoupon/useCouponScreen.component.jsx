@@ -1,23 +1,23 @@
-import { View, Text, Image } from "react-native";
 import { useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
+import { View, Text, Image } from "react-native";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import sendPushNotification from "../../utils/expo/sendPushNotification";
 
 import { db } from "../../firebase/firebase.config";
 import { useAuth } from "../../contexts/authContext";
+import { useUser } from "../../contexts/userContext";
 
+import Sticker from "../../components/sticker/sticker.component";
 import PrimaryButton from "../../components/buttons/primaryButton/primaryButton.component";
 
 import { styles } from "./useCouponScreen.styles";
-import sendPushNotification from "../../utils/expo/sendPushNotification";
-import { useUser } from "../../contexts/userContext";
-import Sticker from "../../components/sticker/sticker.component";
 
 const UseCoupon = ({ route }) => {
   const { currentUser } = useAuth();
   const { userData } = useUser();
   const { couponId, couponData } = route.params;
-  const { title, description, quantity, used, expirationDate, status, from, to } = couponData;
+  const { title, description, quantity, used, expirationDate, status, from, sticker } = couponData;
   const [error, setError] = useState("");
   const [statusState, setStatusState] = useState(status);
   const [usedState, setUsedState] = useState(used);
@@ -103,7 +103,6 @@ const UseCoupon = ({ route }) => {
           <Text style={styles.couponTitle}>{title}</Text>
           <Text style={styles.couponDesc}>{description}</Text>
 
-          {/* <View style={{ alignItems: "center", position: "absolute", bottom: 10 }}> */}
           <View style={{ alignItems: "center" }}>
             <Text style={styles.quantity}>Quantity</Text>
             <View style={styles.quantityBoxContainer}>
@@ -112,7 +111,10 @@ const UseCoupon = ({ route }) => {
                   <View key={i} style={styles.quantityBox}>
                     <View style={styles.quantityBoxShadow} />
                     <View
-                      style={[styles.box, { backgroundColor: i + 1 <= used ? "#B5B4B4" : "#FFF" }]}
+                      style={[
+                        styles.box,
+                        { backgroundColor: i + 1 <= usedState ? "#B5B4B4" : "#FFF" },
+                      ]}
                     />
                   </View>
                 );
@@ -128,7 +130,7 @@ const UseCoupon = ({ route }) => {
             : `Status: waiting for ${userData.linkedUserName} to confirm completion`}
         </Text>
       )}
-      <Sticker />
+      {sticker && <Sticker style={styles.sticker} image={sticker} imageSize={260} />}
       <PrimaryButton
         disabled={checkIfBtnDisabled()}
         title={from === currentUser.uid ? "Confirm used!" : "Use coupon!"}

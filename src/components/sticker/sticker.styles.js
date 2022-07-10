@@ -2,18 +2,13 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   stickerContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  stickerCircle: {
-    height: 200,
-    width: 200,
     backgroundColor: "#FFE4E4",
     borderRadius: 100,
-    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
   },
   image: {
-    height: 250,
-    width: 250,
+    resizeMode: "contain",
   },
 });

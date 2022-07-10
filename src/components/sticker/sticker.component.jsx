@@ -2,10 +2,17 @@ import { Image, View } from "react-native";
 
 import { styles } from "./sticker.styles";
 
-const Sticker = ({ image }) => (
-  <View style={styles.stickerContainer}>
-    <View style={styles.stickerCircle} />
-    <Image source={image} style={styles.image} />
+const defaultImageSize = 200;
+
+const Sticker = ({ image, style, imageSize }) => (
+  <View style={[styles.stickerContainer, style]}>
+    <Image
+      source={{ uri: image }}
+      style={[
+        styles.image,
+        { height: imageSize || defaultImageSize, width: imageSize || defaultImageSize },
+      ]}
+    />
   </View>
 );
 

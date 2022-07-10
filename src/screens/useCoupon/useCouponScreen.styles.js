@@ -79,6 +79,12 @@ export const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 30,
   },
+  sticker: {
+    position: "absolute",
+    bottom: 130,
+    height: 200,
+    width: 200,
+  },
   button: {
     position: "absolute",
     bottom: 20,

@@ -30,6 +30,7 @@ import PrimaryButton from "../../components/buttons/primaryButton/primaryButton.
 
 import { styles } from "./createCouponScreen.styles";
 import SecondaryButton from "../../components/buttons/secondaryButton/secondaryButton.component";
+import Sticker from "../../components/sticker/sticker.component";
 
 const CreateCouponScreen = ({ navigation }) => {
   const { userData } = useUser();
@@ -112,11 +113,11 @@ const CreateCouponScreen = ({ navigation }) => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
           <Input
-            maxLength={35}
             label={"Title*"}
             value={title}
             onChangeText={setTitle}
             placeholder='Title'
+            maxLength={35}
             style={styles.inputStyle}
           />
           <Input
@@ -125,6 +126,7 @@ const CreateCouponScreen = ({ navigation }) => {
             onChangeText={(text) => setDescription(text)}
             placeholder='Description'
             multiline
+            maxLength={120}
             numberOfLines={4}
             style={styles.inputStyle}
           />
@@ -148,22 +150,7 @@ const CreateCouponScreen = ({ navigation }) => {
           />
 
           {sticker ? (
-            <View
-              style={{
-                height: 150,
-                width: 150,
-                backgroundColor: "#FFE4E4",
-                borderRadius: 100,
-                alignItems: "center",
-                justifyContent: "center",
-                alignSelf: "center",
-              }}
-            >
-              <Image
-                source={{ uri: sticker }}
-                style={{ resizeMode: "contain", height: 200, width: 200 }}
-              />
-            </View>
+            <Sticker image={sticker} style={{ height: 150, width: 150 }} />
           ) : (
             <Text style={styles.stickerText}>Choose a sticker?</Text>
           )}
