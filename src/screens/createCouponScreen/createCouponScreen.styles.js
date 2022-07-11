@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: "10%",
     marginTop: 40,
-    paddingBottom: 40,
+    paddingBottom: 20,
   },
   inputStyle: {
     marginBottom: 25,
@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
   },
   datePickerBtn: {
-    marginBottom: 60,
+    // marginBottom: 60,
   },
   createCouponButton: {
     marginBottom: 2,

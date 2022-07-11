@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   badge: {
     height: 10,
     width: 10,
-    backgroundColor: colors.yellow,
+    backgroundColor: colors.couponColors.yellow,
     borderRadius: 100,
     marginLeft: 4,
   },

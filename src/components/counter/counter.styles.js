@@ -31,4 +31,7 @@ export const styles = StyleSheet.create({
     fontSize: fontSizes.large,
     fontFamily: fontFamily.regularMedium,
   },
+  disabled: {
+    opacity: 0.8,
+  },
 });

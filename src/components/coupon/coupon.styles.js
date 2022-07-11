@@ -17,7 +17,13 @@ export const styles = StyleSheet.create({
     transform: [{ translateX: 2 }, { translateY: 2 }],
   },
   disabled: {
-    opacity: 0.5,
+    opacity: 0.4,
+  },
+  expirationDate: {
+    position: "absolute",
+    fontFamily: fontFamily.regularRegular,
+    fontSize: fontSizes.small,
+    top: 20,
   },
   title: {
     textAlign: "center",
@@ -54,6 +60,12 @@ export const styles = StyleSheet.create({
     top: 1,
     right: -1,
     backgroundColor: "#000",
+  },
+  quantityBoxWhite: {
+    position: "absolute",
+    height: "100%",
+    width: "100%",
+    backgroundColor: "#FFF",
   },
   shadow: {
     position: "absolute",

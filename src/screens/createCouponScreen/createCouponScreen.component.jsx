@@ -1,5 +1,4 @@
 import {
-  Button,
   Image,
   Keyboard,
   Pressable,
@@ -19,8 +18,7 @@ import { formatDate } from "../../utils/formatDate";
 import { useUser } from "../../contexts/userContext";
 import { useAuth } from "../../contexts/authContext";
 
-import { db } from "../../firebase/firebase.config";
-import { coupons } from "../../firebase/firestore.collections";
+import { coupons, stickersCol } from "../../firebase/firestore.collections";
 
 import Input from "../../components/input/input.component";
 import Counter from "../../components/counter/counter.component";
@@ -31,6 +29,7 @@ import PrimaryButton from "../../components/buttons/primaryButton/primaryButton.
 import { styles } from "./createCouponScreen.styles";
 import SecondaryButton from "../../components/buttons/secondaryButton/secondaryButton.component";
 import Sticker from "../../components/sticker/sticker.component";
+import { colors } from "../../utils/designSystem";
 
 const CreateCouponScreen = ({ navigation }) => {
   const { userData } = useUser();
@@ -46,12 +45,13 @@ const CreateCouponScreen = ({ navigation }) => {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [expirationDate, setExpirationDate] = useState(new Date());
+  const [selectedColor, setSelectedColor] = useState(colors.couponColors.blue);
   const [sticker, setSticker] = useState(null);
 
   const [displayDate, setDisplayDate] = useState(formatDate(new Date()));
 
   async function getStickers() {
-    const catStickersRef = doc(db, "stickers", "cat-stickers");
+    const catStickersRef = doc(stickersCol, "cat-stickers");
     const catStickersSnap = await getDoc(catStickersRef);
     setStickers(catStickersSnap.data());
   }
@@ -76,12 +76,14 @@ const CreateCouponScreen = ({ navigation }) => {
         title,
         description,
         quantity,
+        color: selectedColor,
         sticker,
         used: 0,
         expirationDate,
         status: "idle",
         to: userData.linked,
         from: currentUser.uid,
+        createdAt: new Date(),
       };
 
       const couponRef = await addDoc(coupons, couponData);
@@ -132,7 +134,7 @@ const CreateCouponScreen = ({ navigation }) => {
           />
 
           <Text style={styles.label}>Quantity</Text>
-          <Counter count={quantity} setCount={setQuantity} />
+          <Counter count={quantity} setCount={setQuantity} minCount={1} maxCount={5} />
 
           <Text style={[styles.label, { marginTop: 30 }]}>Expiration date</Text>
           <DateTimePickerModal
@@ -148,6 +150,34 @@ const CreateCouponScreen = ({ navigation }) => {
             onPress={() => setDatePickerVisibility(true)}
             style={styles.datePickerBtn}
           />
+
+          <Text style={[styles.label, { marginTop: 30 }]}>Choose a coupon color</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+              marginBottom: 60,
+            }}
+          >
+            {Object.entries(colors.couponColors).map((color) => (
+              <Pressable
+                key={color[0]}
+                onPress={() => setSelectedColor(color[1])}
+                style={({ pressed }) => [
+                  { opacity: pressed ? 0.6 : 1 },
+                  color[1] === selectedColor && { borderWidth: 2 },
+                  {
+                    height: 50,
+                    width: 50,
+                    margin: 5,
+                    backgroundColor: color[1],
+                    flexGrow: 1,
+                  },
+                ]}
+              />
+            ))}
+          </View>
 
           {sticker ? (
             <Sticker image={sticker} style={{ height: 150, width: 150 }} />

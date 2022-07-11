@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
   button: {
     borderRadius: 5,
     padding: 10,
-    backgroundColor: colors.green,
+    backgroundColor: colors.couponColors.green,
     borderWidth: 2,
     marginBottom: 5,
   },

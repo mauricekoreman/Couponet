@@ -1,8 +1,9 @@
 import { Pressable, Text, View } from "react-native";
+import { fontSizes } from "../../../utils/designSystem";
 
 import { styles } from "./textButton.styles";
 
-const TextButton = ({ title, icon, onPress, disabled = false, style }) => (
+const TextButton = ({ title, icon, onPress, disabled = false, fontSize, color, style }) => (
   <Pressable
     disabled={disabled}
     onPress={onPress}
@@ -14,9 +15,22 @@ const TextButton = ({ title, icon, onPress, disabled = false, style }) => (
     ]}
   >
     {({ pressed }) => (
-      <View style={styles.btnContainer}>
+      <View style={[styles.btnContainer, pressed && styles.pressed]}>
         {icon}
-        <Text style={[styles.btnText, icon && { marginLeft: 10 }]}>{title}</Text>
+        <Text
+          style={[
+            styles.btnText,
+            {
+              fontSize: fontSize || fontSizes.regular,
+              color: color || "#000",
+            },
+            icon && {
+              marginLeft: 10,
+            },
+          ]}
+        >
+          {title}
+        </Text>
       </View>
     )}
   </Pressable>

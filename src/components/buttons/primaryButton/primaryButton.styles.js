@@ -4,7 +4,7 @@ import { fontSizes, fontFamily, colors } from "../../../utils/designSystem";
 
 export const styles = StyleSheet.create({
   btn: {
-    backgroundColor: colors.green,
+    backgroundColor: colors.couponColors.green,
     flex: 1,
     alignItems: "center",
     paddingVertical: 10,

@@ -49,7 +49,7 @@ const LoginScreen = ({ navigation }) => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.loginScreenContainer}>
           <Square
-            color={colors.blue}
+            color={colors.couponColors.blue}
             height={32}
             width={32}
             borderRadius={7}
@@ -63,7 +63,7 @@ const LoginScreen = ({ navigation }) => {
           <View style={styles.contentContainer}>
             <Square
               containerStyle={{ transform: [{ translateX: -30 }, { translateY: -43 }] }}
-              color={colors.pink}
+              color={colors.couponColors.pink}
               borderRadius={10}
             />
             <Input onChangeText={setEmail} value={email} placeholder='Email' />

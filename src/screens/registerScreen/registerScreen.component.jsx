@@ -53,7 +53,7 @@ const RegisterScreen = () => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.registerScreenContainer}>
           <Square
-            color={colors.blue}
+            color={colors.couponColors.blue}
             height={32}
             width={32}
             borderRadius={7}
@@ -67,7 +67,7 @@ const RegisterScreen = () => {
           <View style={styles.contentContainer}>
             <Square
               containerStyle={{ transform: [{ translateX: -30 }, { translateY: -43 }] }}
-              color={colors.pink}
+              color={colors.couponColors.pink}
               borderRadius={10}
             />
             <Square

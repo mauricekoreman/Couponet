@@ -12,14 +12,18 @@ export const styles = StyleSheet.create({
     alignSelf: "center",
   },
   coupon: {
-    paddingTop: 30,
+    paddingTop: 20,
     paddingBottom: 10,
     paddingHorizontal: 20,
-    backgroundColor: colors.blue,
     borderWidth: 2,
     borderRadius: 10,
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  expirationDate: {
+    fontFamily: fontFamily.regularRegular,
+    fontSize: fontSizes.small,
+    marginBottom: 10,
   },
   couponTitle: {
     textAlign: "center",
@@ -70,6 +74,12 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     top: 2,
     right: -2,
+  },
+  expiredText: {
+    fontFamily: fontFamily.regularSemiBold,
+    fontSize: fontSizes.small,
+    alignSelf: "center",
+    marginTop: 30,
   },
   statusText: {
     textAlign: "center",

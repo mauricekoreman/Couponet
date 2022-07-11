@@ -30,6 +30,6 @@ export const styles = StyleSheet.create({
     width: "100%",
     alignSelf: "center",
     position: "absolute",
-    bottom: 50,
+    bottom: 30,
   },
 });

@@ -3,7 +3,9 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import MyCoupons from "../screens/myCoupons/myCouponsScreen.component";
 import ReceivedCoupons from "../screens/receivedCoupons/receivedCoupons.component";
 import NavigatorTitle from "../components/navigatorTitle/navigatorBadge.component";
-import { colors, fontFamily } from "../utils/designSystem";
+
+import { colors } from "../utils/designSystem";
+
 const Tab = createMaterialTopTabNavigator();
 
 const HomeTabNavigator = () => (

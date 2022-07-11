@@ -2,15 +2,15 @@ import { View, Text, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { styles } from "./coupon.styles";
+import { formatDate } from "../../utils/formatDate";
 
-const Coupon = ({ item, id, color }) => {
+const Coupon = ({ item, id }) => {
   const navigation = useNavigation();
 
-  const { title, quantity, used, status } = item;
+  const { title, quantity, used, status, color, expirationDate } = item;
 
   return (
     <Pressable
-      disabled={status === "finished" ? true : false}
       unstable_pressDelay={40}
       onPress={() =>
         navigation.navigate("useCouponScreen", {
@@ -28,28 +28,24 @@ const Coupon = ({ item, id, color }) => {
             style={[
               styles.container,
               { backgroundColor: color },
-              status === "pending" && { borderColor: "#E8C412" },
-              status === "finished" && styles.disabled,
+              (status === "finished" || status === "expired") && styles.disabled,
               pressed && styles.pressed,
             ]}
           >
+            <Text style={styles.expirationDate}>{formatDate(expirationDate.toDate())}</Text>
             <Text style={styles.title}>{title}</Text>
             <View style={{ alignItems: "center", position: "absolute", bottom: 10 }}>
               <Text style={styles.quantity}>Quantity:</Text>
               <View style={styles.quantityBoxContainer}>
-                {[...Array(quantity)].map((_, i) => {
-                  return (
-                    <View key={i} style={styles.quantityBox}>
-                      <View style={styles.quantityBoxShadow} />
-                      <View
-                        style={[
-                          styles.box,
-                          { backgroundColor: i + 1 <= used ? "#B5B4B4" : "#FFF" },
-                        ]}
-                      />
-                    </View>
-                  );
-                })}
+                {[...Array(quantity)].map((_, i) => (
+                  <View key={i} style={styles.quantityBox}>
+                    <View style={styles.quantityBoxShadow} />
+                    <View style={styles.quantityBoxWhite} />
+                    <View
+                      style={[styles.box, { backgroundColor: i + 1 <= used ? "#B5B4B4" : "#FFF" }]}
+                    />
+                  </View>
+                ))}
               </View>
             </View>
           </View>

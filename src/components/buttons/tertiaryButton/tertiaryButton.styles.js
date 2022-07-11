@@ -1,21 +1,17 @@
 import { StyleSheet } from "react-native";
-
 import { fontFamily } from "../../../utils/designSystem";
 
 export const styles = StyleSheet.create({
-  container: {},
   btnContainer: {
     flexDirection: "row",
     alignItems: "center",
   },
-  pressed: {
-    opacity: 0.6,
-  },
   btnText: {
-    fontFamily: fontFamily.regularMedium,
-    textAlign: "center",
+    marginLeft: 30,
+    fontFamily: fontFamily.displayRegular,
+    fontSize: 22,
   },
-  disabled: {
+  pressed: {
     opacity: 0.6,
   },
 });

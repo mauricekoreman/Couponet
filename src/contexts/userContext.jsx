@@ -1,5 +1,14 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { collection, doc, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 
 import { db } from "../firebase/firebase.config";
 import { useAuth } from "./authContext";
@@ -32,8 +41,13 @@ export function UserProvider({ children }) {
       ...prevState,
       ...data,
     }));
+  }
 
-    return true;
+  async function updateLinkedUserData(data) {
+    const linkedUserDocRef = doc(db, "users", userData.linked);
+
+    // update the document of the linked user
+    await updateDoc(linkedUserDocRef, data);
   }
 
   async function linkUser(email) {
@@ -60,6 +74,14 @@ export function UserProvider({ children }) {
     });
   }
 
+  async function unlinkUser() {
+    // update the document of the current user
+    await updateUserData({ linked: null, linkedUserName: null });
+
+    // update the document of the linked user
+    await updateLinkedUserData({ linked: null, linkedUserName: null });
+  }
+
   useEffect(() => {
     getUserData();
   }, []);
@@ -67,10 +89,20 @@ export function UserProvider({ children }) {
   const value = {
     userData,
     updateUserData,
+    updateLinkedUserData,
     linkUser,
+    unlinkUser,
     userDocRef: userDocRef,
-    couponsReceivedRef: query(collection(db, "coupons"), where("to", "==", currentUser.uid)),
-    couponsGivenRef: query(collection(db, "coupons"), where("from", "==", currentUser.uid)),
+    couponsReceivedRef: query(
+      collection(db, "coupons"),
+      where("to", "==", currentUser.uid),
+      orderBy("createdAt", "desc")
+    ),
+    couponsGivenRef: query(
+      collection(db, "coupons"),
+      where("from", "==", currentUser.uid),
+      orderBy("createdAt", "desc")
+    ),
   };
 
   return <UserContext.Provider value={value}>{!loading && children}</UserContext.Provider>;

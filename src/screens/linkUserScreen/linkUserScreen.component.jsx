@@ -1,7 +1,5 @@
-import { useEffect } from "react";
 import { View, Text } from "react-native";
 import QRCode from "react-native-qrcode-svg";
-import { onSnapshot } from "firebase/firestore";
 
 import { useUser } from "../../contexts/userContext";
 import PrimaryButton from "../../components/buttons/primaryButton/primaryButton.component";
@@ -9,18 +7,7 @@ import PrimaryButton from "../../components/buttons/primaryButton/primaryButton.
 import { styles } from "./linkUserScreen.styles";
 
 const LinkUserScreen = ({ navigation }) => {
-  const { userData, updateUserData, userDocRef } = useUser();
-
-  // create a subscription that listens to userData.linked firestore
-  useEffect(() => {
-    const unsubscribe = onSnapshot(userDocRef, (doc) => {
-      if (doc.data().linked) {
-        updateUserData(doc.data());
-      }
-    });
-
-    return unsubscribe;
-  }, []);
+  const { userData } = useUser();
 
   return (
     <View style={styles.linkUserScreenContainer}>
