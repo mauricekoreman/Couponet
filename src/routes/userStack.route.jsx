@@ -43,7 +43,7 @@ const UserStack = () => {
   // create a subscription that listens to userData.linked firestore
   useEffect(() => {
     const unsubscribe = onSnapshot(userDocRef, (doc) => {
-      if (doc.data().linked) {
+      if (doc.data().linked || doc.data().linked === null) {
         updateUserData(doc.data());
       }
     });

@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   btnText: {
+    maxWidth: "75%",
     marginLeft: 30,
     fontFamily: fontFamily.displayRegular,
     fontSize: 22,
