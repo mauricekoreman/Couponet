@@ -71,7 +71,7 @@ const RegisterScreen = () => {
               borderRadius={10}
             />
             <Square
-              color={colors.purple}
+              color={colors.couponColors.purple}
               borderRadius={10}
               width={130}
               containerStyle={{
@@ -92,7 +92,7 @@ const RegisterScreen = () => {
               secureTextEntry={true}
               onChangeText={setConfirmPassword}
               value={confirmPassword}
-              placeholder='Conform password'
+              placeholder='Confirm password'
             />
             <PrimaryButton
               style={{ marginTop: 30, marginBottom: 2, width: "100%" }}

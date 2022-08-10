@@ -3,13 +3,12 @@
     "name": "Couponet",
     "slug": "Couponet",
     "version": "1.0.0",
-    "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./src/assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FFFFF4"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -23,7 +22,7 @@
       "package": "com.mgkor.couponet",
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#FFFFF4"
       }
     },
     "web": {

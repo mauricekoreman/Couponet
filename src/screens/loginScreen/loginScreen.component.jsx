@@ -1,17 +1,16 @@
-import { View, Text, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
+import { View, Text, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-
-import { useAuth } from "../../contexts/authContext";
 
 import { styles } from "./loginScreen.styles";
 import { colors } from "../../utils/designSystem";
+import { useAuth } from "../../contexts/authContext";
 
-import TextButton from "../../components/buttons/textButton/textButton.component";
-import PrimaryButton from "../../components/buttons/primaryButton/primaryButton.component";
 import Input from "../../components/input/input.component";
 import Square from "../../components/elements/square.component";
+import TextButton from "../../components/buttons/textButton/textButton.component";
+import PrimaryButton from "../../components/buttons/primaryButton/primaryButton.component";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");

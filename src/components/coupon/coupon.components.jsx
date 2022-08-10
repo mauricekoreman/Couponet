@@ -18,12 +18,12 @@ const Coupon = ({ item, id }) => {
           couponData: item,
         })
       }
-      style={{ marginBottom: 30, width: "90%", alignSelf: "center" }}
+      style={styles.pressable}
     >
       {({ pressed }) => (
         <>
           <View style={styles.shadow} />
-          <View style={styles.whiteBack} />
+          <View style={[styles.whiteBack, pressed && styles.pressed]} />
           <View
             style={[
               styles.container,

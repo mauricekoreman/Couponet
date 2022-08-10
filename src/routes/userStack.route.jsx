@@ -122,7 +122,7 @@ const UserStack = () => {
             <Stack.Screen
               name='barcodeScannerScreen'
               component={BarcodeScannerScreen}
-              options={{ animation: "slide_from_bottom" }}
+              options={{ headerTitle: "Scan QR-code", animation: "slide_from_bottom" }}
             />
           </>
         )}

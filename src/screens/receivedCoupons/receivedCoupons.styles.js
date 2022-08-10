@@ -2,6 +2,7 @@ import { Dimensions, StyleSheet } from "react-native";
 import { colors, fontFamily, fontSizes } from "../../utils/designSystem";
 
 const size = Dimensions.get("window").width;
+const maxSize = size > 700 ? "70%" : size;
 
 export const styles = StyleSheet.create({
   screenContainer: {
@@ -19,6 +20,8 @@ export const styles = StyleSheet.create({
     resizeMode: "contain",
     height: size,
     width: size,
+    maxHeight: maxSize,
+    maxWidth: maxSize,
   },
   text: {
     textAlign: "center",

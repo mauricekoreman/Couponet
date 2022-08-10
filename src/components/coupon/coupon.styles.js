@@ -3,6 +3,11 @@ import { StyleSheet } from "react-native";
 import { fontFamily, fontSizes } from "../../utils/designSystem";
 
 export const styles = StyleSheet.create({
+  pressable: {
+    marginBottom: 30,
+    width: "90%",
+    alignSelf: "center",
+  },
   container: {
     alignItems: "center",
     width: "100%",

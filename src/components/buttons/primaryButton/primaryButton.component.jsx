@@ -7,7 +7,7 @@ const PrimaryButton = ({ title, onPress, disabled = false, style }) => (
     {({ pressed }) => (
       <>
         <View style={styles.shadow} />
-        <View style={styles.whiteBack} />
+        <View style={[styles.whiteBack, pressed && styles.pressed]} />
         <View style={[pressed && styles.pressed, styles.btn]}>
           <Text style={styles.text}>{title}</Text>
         </View>
