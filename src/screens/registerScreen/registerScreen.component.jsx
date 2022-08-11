@@ -61,7 +61,7 @@ const RegisterScreen = () => {
           />
           <View style={styles.headingContainer}>
             <Text style={styles.headingSmall}>Register to</Text>
-            <Text style={styles.headingLarge}>CouponMe</Text>
+            <Text style={styles.headingLarge}>Couponet</Text>
           </View>
 
           <View style={styles.contentContainer}>

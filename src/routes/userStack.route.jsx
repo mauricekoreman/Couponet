@@ -84,7 +84,7 @@ const UserStack = () => {
               name='homeTabNavigator'
               component={HomeTabNavigator}
               options={({ navigation }) => ({
-                headerTitle: "CouponMe",
+                headerTitle: "Couponet",
                 headerRight: () => (
                   <TouchableOpacity onPress={() => navigation.navigate("settingsScreen")}>
                     <Feather name='settings' size={28} />
