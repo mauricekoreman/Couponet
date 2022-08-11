@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import {
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -11,7 +12,7 @@ import {
 } from "firebase/firestore";
 
 import { db } from "../firebase/firebase.config";
-import { useAuth } from "./authContext";
+import { useAuth, deleteUserCoupons } from "./authContext";
 
 const UserContext = createContext();
 
@@ -68,7 +69,6 @@ export function UserProvider({ children }) {
     const linkedUserName = linkedUserSnap.docs[0].data().name;
     const linkedUserDocRef = doc(db, "users", linkedUserId);
 
-
     // Update the document of the current user
     await updateUserData({ linked: linkedUserId, linkedUserName: linkedUserName });
 
@@ -85,6 +85,9 @@ export function UserProvider({ children }) {
 
     // update the document of the linked user
     await updateLinkedUserData({ linked: null, linkedUserName: null });
+
+    // delete all coupons that were given and received by these users
+    await deleteUserCoupons();
   }
 
   useEffect(() => {

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
 import Feather from "@expo/vector-icons/Feather";
 import Input from "../../components/input/input.component";
-import { Dimensions, Keyboard, Text, TouchableWithoutFeedback, View } from "react-native";
+import { Button, Dimensions, Keyboard, Text, TouchableWithoutFeedback, View } from "react-native";
 import { useHeaderHeight } from "@react-navigation/elements";
 
 import { useAuth } from "../../contexts/authContext";
@@ -13,11 +13,13 @@ import TertiaryButton from "../../components/buttons/tertiaryButton/tertiaryButt
 
 import { styles } from "./settingsScreen.styles";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { collection, deleteDoc, doc, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../firebase/firebase.config";
 
 const SettingsScreen = ({ navigation }) => {
   const headerHeight = useHeaderHeight();
 
-  const { logout, changeEmail, resetPassword } = useAuth();
+  const { logout, changeEmail, resetPassword, currentUser } = useAuth();
   const { userData, updateUserData, updateLinkedUserData, unlinkUser } = useUser();
 
   const [name, setName] = useState(userData.name);
