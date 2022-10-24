@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 
 import { db } from "../firebase/firebase.config";
-import { useAuth, deleteUserCoupons } from "./authContext";
+import { useAuth } from "./authContext";
 
 const UserContext = createContext();
 
@@ -23,7 +23,7 @@ export function useUser() {
 export function UserProvider({ children }) {
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(true);
-  const { currentUser } = useAuth();
+  const { currentUser, deleteUserCoupons } = useAuth();
 
   const userDocRef = doc(db, "users", currentUser.uid);
 

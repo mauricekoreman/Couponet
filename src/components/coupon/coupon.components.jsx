@@ -3,11 +3,60 @@ import { useNavigation } from "@react-navigation/native";
 
 import { styles } from "./coupon.styles";
 import { formatDate } from "../../utils/formatDate";
+import { useEffect, useState } from "react";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase/firebase.config";
 
 const Coupon = ({ item, id }) => {
   const navigation = useNavigation();
-
   const { title, quantity, used, status, color, expirationDate } = item;
+
+  const [localStatus, setLocalStatus] = useState(status);
+
+  async function expireCoupon() {
+    try {
+      const state = "expired";
+      // set status to expired
+      const couponRef = doc(db, "coupons", id);
+      await updateDoc(couponRef, {
+        status: state,
+      });
+
+      // set state visually as well
+      setLocalStatus(state);
+    } catch (error) {
+      console.log("Something went wrong with expiring the coupon...", error);
+    }
+  }
+
+  useEffect(() => {
+    function checkIfExpired() {
+      if (status === "expired" || status === "finished") {
+        return;
+      }
+
+      const today = new Date();
+      const expiration = expirationDate.toDate();
+
+      // We only want to expire with absolute values of day, month and year. So thats why I created this ugly looking number.
+      const todayStrNr = Number(
+        String(today.getFullYear()) + String(today.getMonth() + 1) + String(today.getDate())
+      );
+
+      const expirationStrNr = Number(
+        String(expiration.getFullYear()) +
+          String(expiration.getMonth() + 1) +
+          String(expiration.getDate())
+      );
+
+      if (todayStrNr > expirationStrNr) {
+        expireCoupon();
+      }
+    }
+
+    checkIfExpired();
+    setLocalStatus(status);
+  }, [status]);
 
   return (
     <Pressable
@@ -28,7 +77,7 @@ const Coupon = ({ item, id }) => {
             style={[
               styles.container,
               { backgroundColor: color },
-              (status === "finished" || status === "expired") && styles.disabled,
+              (localStatus === "finished" || localStatus === "expired") && styles.disabled,
               pressed && styles.pressed,
             ]}
           >

@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
 import { fontFamily, fontSizes } from "../../utils/designSystem";
 
@@ -19,6 +19,7 @@ export const styles = StyleSheet.create({
   },
   textArea: {
     textAlignVertical: "top",
+    minHeight: Platform.OS === "ios" ? 100 : 0,
   },
   shadow: {
     position: "absolute",

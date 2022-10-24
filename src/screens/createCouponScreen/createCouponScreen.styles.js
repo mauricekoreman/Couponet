@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { colors, fontFamily, fontSizes } from "../../utils/designSystem";
 
 export const styles = StyleSheet.create({
@@ -28,6 +28,7 @@ export const styles = StyleSheet.create({
   },
   stickerText: {
     fontFamily: fontFamily.displayRegular,
+    paddingTop: Platform.OS === "ios" ? 2 : 0, // IOS cuts off top 2px off Rockwell regular
     fontSize: fontSizes.large,
     alignSelf: "center",
   },

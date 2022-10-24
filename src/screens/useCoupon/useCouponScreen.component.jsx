@@ -31,7 +31,8 @@ const UseCoupon = ({ route, navigation }) => {
     if (
       (statusState === "pending" && from !== currentUser.uid) ||
       (statusState === "idle" && from === currentUser.uid) ||
-      statusState === "expired"
+      statusState === "expired" ||
+      statusState === "finished"
     ) {
       return true;
     } else {
@@ -62,12 +63,12 @@ const UseCoupon = ({ route, navigation }) => {
 
       // get linked user push token
       const linkedUserDocRef = doc(db, "users", userData.linked);
-      const { pushToken, name } = (await getDoc(linkedUserDocRef)).data();
+      const { pushToken } = (await getDoc(linkedUserDocRef)).data();
 
       await sendPushNotification({
         pushToken: pushToken,
         title: "Coupon used",
-        message: `${name} used a coupon!`,
+        message: `${userData.name} used a coupon!`,
       });
     } catch (err) {
       console.error(err);
@@ -99,45 +100,6 @@ const UseCoupon = ({ route, navigation }) => {
       setError(err.code);
     }
   }
-
-  useEffect(() => {
-    async function expireCoupon() {
-      try {
-        const state = "expired";
-        // set status to expired
-        const couponRef = doc(db, "coupons", couponId);
-        await updateDoc(couponRef, {
-          status: state,
-        });
-
-        // set state visually as well
-        setStatusState(state);
-      } catch (error) {
-        console.log("Something went wrong with expiring the coupon...", error);
-      }
-    }
-
-    // Check only if expired, when the database state is not set to expired yet
-    if (status !== "expired") {
-      const today = new Date();
-      const expiration = expirationDate.toDate();
-
-      // We only want to expire with absolute values of day, month and year. So thats why I created this ugly looking number.
-      const todayStrNr = Number(
-        String(today.getFullYear()) + String(today.getMonth() + 1) + String(today.getDate())
-      );
-
-      const expirationStrNr = Number(
-        String(expiration.getFullYear()) +
-          String(expiration.getMonth() + 1) +
-          String(expiration.getDate())
-      );
-
-      if (todayStrNr > expirationStrNr) {
-        expireCoupon();
-      }
-    }
-  }, []);
 
   useEffect(() => {
     if (!!error) {
@@ -205,6 +167,6 @@ const UseCoupon = ({ route, navigation }) => {
       />
     </View>
   );
-};
+};;;
 
 export default UseCoupon;

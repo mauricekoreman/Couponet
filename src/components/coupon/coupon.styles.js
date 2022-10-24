@@ -38,6 +38,7 @@ export const styles = StyleSheet.create({
   quantity: {
     marginTop: 30,
     fontFamily: fontFamily.displayRegular,
+    paddingTop: Platform.OS === "ios" ? 2 : 0, // IOS cuts off top 2px off Rockwell regular
     fontSize: fontSizes.small,
   },
   quantityBoxContainer: {

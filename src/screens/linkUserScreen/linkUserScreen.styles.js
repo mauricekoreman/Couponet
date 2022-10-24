@@ -11,6 +11,7 @@ export const styles = StyleSheet.create({
   heading: {
     alignSelf: "center",
     fontFamily: fontFamily.displayRegular,
+    paddingTop: Platform.OS === "ios" ? 2 : 0, // IOS cuts off top 2px off Rockwell regular
     fontSize: 40,
     textAlign: "center",
   },
