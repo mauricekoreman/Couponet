@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Couponet",
-    "slug": "Couponet",
+    "name": "CouponMe",
+    "slug": "CouponMe",
     "version": "1.0.0",
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -12,15 +12,16 @@
       "backgroundColor": "#FFFFF4"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/74e7d635-ee96-458e-ba74-92c89292d16e"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "bundleIdentifier": "com.mgkor.couponet",
+      "bundleIdentifier": "com.mgkor.couponme",
       "supportsTablet": true
     },
     "android": {
-      "package": "com.mgkor.couponet",
+      "package": "com.mgkor.couponme",
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFF4"
@@ -28,9 +29,18 @@
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "74e7d635-ee96-458e-ba74-92c89292d16e"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
     }
   },
   "android": {
     "googleServicesFile": "./google-services.json"
   }
 }
+
