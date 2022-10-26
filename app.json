@@ -13,26 +13,27 @@
     },
     "updates": {
       "fallbackToCacheTimeout": 0,
-      "url": "https://u.expo.dev/74e7d635-ee96-458e-ba74-92c89292d16e"
+      "url": "https://u.expo.dev/82ee9fcb-8766-4b71-bc18-27271579cce1"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "bundleIdentifier": "com.mgkor.couponme",
       "supportsTablet": true
     },
     "android": {
-      "package": "com.mgkor.couponme",
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFF4"
-      }
+      },
+      "package": "com.mgkor.couponet"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "74e7d635-ee96-458e-ba74-92c89292d16e"
+        "projectId": "82ee9fcb-8766-4b71-bc18-27271579cce1"
       }
     },
     "runtimeVersion": {
@@ -43,4 +44,3 @@
     "googleServicesFile": "./google-services.json"
   }
 }
-
